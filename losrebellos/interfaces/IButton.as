@@ -1,0 +1,1 @@
+package losrebellos.interfaces {	/*	 *	 * @author los rebellos	 *	 */	public interface IButton 	{		function set button(value:Boolean):void;		function get button():Boolean;	}}
