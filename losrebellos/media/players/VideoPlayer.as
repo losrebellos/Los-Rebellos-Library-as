@@ -2,13 +2,14 @@ package losrebellos.media.players
 {
 	import losrebellos.display.SpritePlus;
 	import losrebellos.interfaces.IScale;
+	import losrebellos.media.stream.IStream;
 	import losrebellos.media.stream.VideoStream;
 	import losrebellos.scale.FitType;
 	import losrebellos.scale.PositionType;
 	import losrebellos.scale.Scale;
-	
+
 	import flash.geom.Rectangle;
-	import flash.media.Video;	
+	import flash.media.Video;
 
 	/*
 	 *
@@ -90,9 +91,9 @@ package losrebellos.media.players
 		 * CONTROLS
 		 * 
 		 */
-		public function load(_video_stream:VideoStream):void
+		public function load(stream:IStream):void
 		{
-			video_stream = _video_stream;
+			video_stream = stream as VideoStream;
 			video_stream.load();
 			video.attachNetStream(video_stream.stream);
 		}
@@ -124,25 +125,25 @@ package losrebellos.media.players
 		 * FIT, POSITION & RESIZE
 		 * 
 		 */
-		public function set fit_type(value:String):void
+		public function set fitType(value:String):void
 		{
 			_fit_type = value;
 			
 			if(_rect)
 				resize(_rect);
 		}
-		public function get fit_type():String
+		public function get fitType():String
 		{
 			return _fit_type;
 		}
-		public function set position_type(value:String):void
+		public function set positionType(value:String):void
 		{
 			_position_type = value;
 			
 			if(_rect)
 				resize(_rect);
 		}
-		public function get position_type():String
+		public function get positionType():String
 		{
 			return _position_type;
 		}
@@ -151,6 +152,17 @@ package losrebellos.media.players
 			_rect = rect;
 			
 			Scale.setScaledRectangle(_fit_type, _position_type, new Rectangle(0, 0, video_width, video_height), _rect, video);
+		}
+		
+		
+		/*
+		 * 
+		 * UTILS
+		 * 
+		 */
+		public function destroyStream():void
+		{
+			video_stream.destroy();
 		}
 	}
 }
