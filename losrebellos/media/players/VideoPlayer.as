@@ -1,6 +1,5 @@
 package losrebellos.media.players 
 {
-	import losrebellos.display.SpritePlus;
 	import losrebellos.interfaces.IScale;
 	import losrebellos.media.stream.IStream;
 	import losrebellos.media.stream.VideoStream;
@@ -8,6 +7,7 @@ package losrebellos.media.players
 	import losrebellos.scale.PositionType;
 	import losrebellos.scale.Scale;
 
+	import flash.errors.IllegalOperationError;
 	import flash.geom.Rectangle;
 	import flash.media.Video;
 
@@ -16,7 +16,7 @@ package losrebellos.media.players
 	 * @author los rebellos
 	 *
 	 */
-	public class VideoPlayer extends SpritePlus implements IPlayer, IScale
+	public class VideoPlayer extends Player implements IScale
 	{
 		/*
 		 * 
@@ -25,7 +25,6 @@ package losrebellos.media.players
 		 */
 		
 		//video
-		protected var video_stream:VideoStream;
 		protected var video:Video;
 		
 		//size
@@ -66,57 +65,21 @@ package losrebellos.media.players
 		{
 			this.addChild(video);
 		}
-		
-		
-		/*
-		 * 
-		 * DATA
-		 * 
-		 */
-		public function get state():String
-		{
-			return video_stream.state;
-		}		public function getPercentLoaded():Number
-		{
-			return video_stream.getPercentLoaded();
-		}
-		public function getPercentPlayed():Number
-		{
-			return video_stream.getPercentPlayed();
-		}
 
 		
 		/*
 		 * 
-		 * CONTROLS
+		 * LOAD
 		 * 
 		 */
-		public function load(stream:IStream):void
+		override public function load(stream:IStream):void
 		{
-			video_stream = stream as VideoStream;
-			video_stream.load();
-			video.attachNetStream(video_stream.stream);
-		}
-		public function play(_percent:Number = 0, _loop:int = 1):void
-		{
-			video_stream.loop = _loop;
-			video_stream.play(_percent, _loop);
-		}
-		public function resume():void
-		{
-			video_stream.resume();
-		}
-		public function pause():void
-		{
-			video_stream.pause();
-		}
-		public function stop():void
-		{
-			video_stream.stop();
-		}
-		public function seek(_percent:Number):void
-		{
-			video_stream.seek(_percent);
+			if(!(stream is VideoStream))
+				throw new IllegalOperationError(">>>>> VideoPlayer: stream not valid (VideoStream)");
+			
+			super.load(stream);
+			
+			video.attachNetStream((stream as VideoStream).stream);
 		}
 		
 		
@@ -152,17 +115,6 @@ package losrebellos.media.players
 			_rect = rect;
 			
 			Scale.setScaledRectangle(_fit_type, _position_type, new Rectangle(0, 0, video_width, video_height), _rect, video);
-		}
-		
-		
-		/*
-		 * 
-		 * UTILS
-		 * 
-		 */
-		public function destroyStream():void
-		{
-			video_stream.destroy();
 		}
 	}
 }

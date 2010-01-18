@@ -2,9 +2,9 @@ package losrebellos.media.stream
 {	import losrebellos.events.StreamEvent;
 	import losrebellos.net.NetStatus;
 	import losrebellos.states.StreamState;
-	
+
 	import flash.events.AsyncErrorEvent;
-	import flash.events.EventDispatcher;		
+	import flash.events.EventDispatcher;
 
 	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcher implements IStream
 	{
@@ -15,9 +15,9 @@ package losrebellos.media.stream
 		 */
 		public var id:String;
 		public var src:String;
-		public var loop:int;
-		public var loop_counter:int;
-		public var state:String;
+		protected var __loop:int = 1;
+		protected var __loop_counter:int = 0;
+		protected var __state:String;
 		
 		
 		/*
@@ -30,7 +30,7 @@ package losrebellos.media.stream
 			id = _id;
 			src = _src;
 			loop = _loop;
-			loop_counter = 0;
+			loopCounter = 0;
 			state = StreamState.NOT_STARTED;		}
 		
 		
@@ -51,6 +51,45 @@ package losrebellos.media.stream
 		
 		/*
 		 * 
+		 * STATE
+		 * 
+		 */
+		public function set state(value:String):void
+		{
+			__state = value;
+		}
+		public function get state():String
+		{
+			return __state;
+		}
+		
+		
+		/*
+		 * 
+		 * LOOP
+		 * 
+		 */
+		public function set loop(value:int):void
+		{
+			if(__loop > -1)
+				__loop = value;
+		}
+		public function get loop():int
+		{
+			return __loop;
+		}
+		public function set loopCounter(value:int):void
+		{
+			__loop_counter = value;
+		}
+		public function get loopCounter():int
+		{
+			return __loop_counter;
+		}
+		
+		
+		/*
+		 * 
 		 * CONTROLS
 		 * 
 		 */
@@ -60,8 +99,7 @@ package losrebellos.media.stream
 		}
 		public function play(_percent:Number = 0, _loop:int = -1):void
 		{
-			if(_loop != -1)
-				loop = _loop;
+			loop = _loop;
 			
 			state = StreamState.PLAYING;
 		}
@@ -102,8 +140,8 @@ package losrebellos.media.stream
 			state = StreamState.STOPPED;
 			this.dispatchEvent(new StreamEvent(StreamEvent.COMPLETE));
 			
-			loop_counter++;
-			if(loop > 1 && loop_counter < loop)
+			loopCounter++;
+			if(loop > 1 && loopCounter < loop)
 				seek(0);
 		}
 		protected function pauseNetStatus():void
@@ -147,6 +185,6 @@ package losrebellos.media.stream
 		{
 			state = StreamState.STOPPED;
 			
-			loop_counter = 0;
+			loopCounter = 0;
 		}
 	}}
