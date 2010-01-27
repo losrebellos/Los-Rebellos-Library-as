@@ -1,13 +1,15 @@
 package losrebellos.media.stream 
 {	import losrebellos.events.StreamEvent;
+	import losrebellos.interfaces.IEvent;
 	import losrebellos.media.Library;
 	import losrebellos.net.NetStatus;
 	import losrebellos.states.StreamState;
 
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
-	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcher implements IStream
+	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcher implements IStream, IEvent
 	{
 		/*
 		 * 
@@ -16,6 +18,7 @@ package losrebellos.media.stream
 		 */
 		public var id:String;
 		public var src:String;
+		protected var progress:Sprite = new Sprite();
 		protected var percent:Number = 0;
 		protected var __loop:int = 1;
 		protected var __loop_counter:int = 0;
@@ -164,11 +167,11 @@ package losrebellos.media.stream
 		}
 		protected function streamProgress():void
 		{
-			this.dispatchEvent(new StreamEvent(StreamEvent.PROGRESS, String(this.getPercentLoaded())));
+			this.dispatchEvent(new StreamEvent(StreamEvent.PROGRESS, this.getPercentLoaded()));
 		}
 		protected function streamLoaded():void
 		{
-			this.dispatchEvent(new StreamEvent(StreamEvent.LOADED));
+			this.dispatchEvent(new StreamEvent(StreamEvent.COMPLETE));
 		}
 		protected function streamStart():void
 		{
@@ -178,7 +181,7 @@ package losrebellos.media.stream
 		protected function streamComplete():void
 		{
 			state = StreamState.STOPPED;
-			this.dispatchEvent(new StreamEvent(StreamEvent.COMPLETE));
+			this.dispatchEvent(new StreamEvent(StreamEvent.STREAM_COMPLETE));
 			
 			loopCounter++;
 			if(loop > 1 && loopCounter < loop)
@@ -206,6 +209,34 @@ package losrebellos.media.stream
 		protected function streamError(e:Event):void
 		{
 			this.dispatchEvent(new StreamEvent(StreamEvent.ERROR, e.type));
+		}
+		
+		
+		/*
+		 * 
+		 * EVENTS
+		 * 
+		 */
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+		{
+			if(type == Event.ENTER_FRAME)
+				progress.addEventListener(type, listener, useCapture, priority, true);
+			else
+				super.addEventListener(type, listener, useCapture, priority, true);
+		}
+		override public function hasEventListener(type:String):Boolean
+		{
+			if(type == Event.ENTER_FRAME)
+				return progress.hasEventListener(type);
+			
+			return super.hasEventListener(type);
+		}
+		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+		{
+			if(type == Event.ENTER_FRAME)
+				progress.removeEventListener(type, listener, useCapture);
+			else
+				super.removeEventListener(type, listener, useCapture);
 		}
 		
 		
