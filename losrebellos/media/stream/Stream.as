@@ -1,5 +1,6 @@
 package losrebellos.media.stream 
-{	import losrebellos.events.StreamEvent;
+{	import losrebellos.media.Library;
+	import losrebellos.events.StreamEvent;
 	import losrebellos.net.NetStatus;
 	import losrebellos.states.StreamState;
 
@@ -15,6 +16,7 @@ package losrebellos.media.stream
 		 */
 		public var id:String;
 		public var src:String;
+		protected var percent:Number = 0;
 		protected var __loop:int = 1;
 		protected var __loop_counter:int = 0;
 		protected var __state:String;
@@ -31,7 +33,36 @@ package losrebellos.media.stream
 			src = _src;
 			loop = _loop;
 			loopCounter = 0;
-			state = StreamState.NOT_STARTED;		}
+			state = StreamState.NOT_STARTED;
+			
+			//if doesn't exist
+			if(!Library.instance.getItem(id))
+			{
+				createStream();
+				
+				//add to the library
+				Library.instance.addItem(id, src);
+			}
+			
+			//if exists
+			else
+				getStream();
+		}
+		
+		
+		/*
+		 * 
+		 * STREAM
+		 * 
+		 */
+		protected function createStream():void
+		{
+			
+		}
+		protected function getStream():void
+		{
+			
+		}
 		
 		
 		/*
@@ -99,6 +130,7 @@ package losrebellos.media.stream
 		}
 		public function play(_percent:Number = 0, _loop:int = -1):void
 		{
+			percent = _percent;
 			loop = _loop;
 			
 			state = StreamState.PLAYING;
@@ -117,7 +149,7 @@ package losrebellos.media.stream
 		}
 		public function seek(_percent:Number):void
 		{
-			
+			percent = _percent;
 		}
 		
 		
