@@ -54,8 +54,9 @@ package losrebellos.media.stream
 			sound.addEventListener(Event.OPEN, openHandler);
 			sound.addEventListener(Event.ID3, id3Handler);
 			sound.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-			sound.addEventListener(Event.COMPLETE, completeHandler);
 			sound.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+			sound.addEventListener(Event.COMPLETE, completeHandler);
+			sound.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 		}
 		override protected function getStream():void
 		{
@@ -154,23 +155,27 @@ package losrebellos.media.stream
 		 */
 		protected function openHandler(e:Event):void
 		{
-			
+			streamStart();
 		}
 		protected function id3Handler(e:Event):void
 		{
 			id3 = sound.id3;
 		}
-		protected function progressHandler(e:Event):void
+		protected function ioErrorHandler(e:Event):void
 		{
-			
+			streamError(e);
+		}
+		protected function progressHandler(e:ProgressEvent):void
+		{
+			streamProgress();
 		}
 		protected function completeHandler(e:Event):void
 		{
-			
+			streamLoaded();
 		}
-		protected function ioErrorHandler(e:Event):void
+		protected function soundCompleteHandler(e:Event):void
 		{
-			
+			streamComplete();
 		}
 		
 		

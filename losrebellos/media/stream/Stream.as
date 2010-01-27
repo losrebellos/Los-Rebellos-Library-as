@@ -1,10 +1,10 @@
 package losrebellos.media.stream 
-{	import losrebellos.media.Library;
-	import losrebellos.events.StreamEvent;
+{	import losrebellos.events.StreamEvent;
+	import losrebellos.media.Library;
 	import losrebellos.net.NetStatus;
 	import losrebellos.states.StreamState;
 
-	import flash.events.AsyncErrorEvent;
+	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
 	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcher implements IStream
@@ -155,19 +155,27 @@ package losrebellos.media.stream
 		
 		/*
 		 * 
-		 * EVENTS & STATES
+		 * STATES
 		 * 
 		 */
-		protected function playStreamNotFoundNetStatus():void
+		protected function streamNotFound():void
 		{
 			this.dispatchEvent(new StreamEvent(StreamEvent.ERROR, NetStatus.PLAY_STREAM_NOT_FOUND));
 		}
-		protected function playStart():void
+		protected function streamProgress():void
+		{
+			this.dispatchEvent(new StreamEvent(StreamEvent.PROGRESS, String(this.getPercentLoaded())));
+		}
+		protected function streamLoaded():void
+		{
+			this.dispatchEvent(new StreamEvent(StreamEvent.LOADED));
+		}
+		protected function streamStart():void
 		{
 			state = StreamState.PLAYING;
 			this.dispatchEvent(new StreamEvent(StreamEvent.PLAY));
 		}
-		protected function playStopNetStatus():void
+		protected function streamComplete():void
 		{
 			state = StreamState.STOPPED;
 			this.dispatchEvent(new StreamEvent(StreamEvent.COMPLETE));
@@ -176,33 +184,26 @@ package losrebellos.media.stream
 			if(loop > 1 && loopCounter < loop)
 				seek(0);
 		}
-		protected function pauseNetStatus():void
+		protected function streamPaused():void
 		{
 			state = StreamState.PAUSED;
 			this.dispatchEvent(new StreamEvent(StreamEvent.PAUSE));
 		}
-		protected function unpauseNetStatus():void
+		protected function streamResume():void
 		{
 			state = StreamState.PLAYING;
 			this.dispatchEvent(new StreamEvent(StreamEvent.PLAY));
 		}
-		protected function bufferEmptyNetStatus():void
+		protected function streamBufferEmpty():void
 		{
 			state = StreamState.BUFFERING;
 			this.dispatchEvent(new StreamEvent(StreamEvent.BUFFERING));
 		}
-		protected function bufferFullNetStatus():void
+		protected function streamBufferFull():void
 		{
 			this.dispatchEvent(new StreamEvent(StreamEvent.BUFFER_FULL));
 		}
-		
-		
-		/*
-		 * 
-		 * ASYNC ERROR
-		 * 
-		 */
-		protected function asyncErrorHandler(e:AsyncErrorEvent):void
+		protected function streamError(e:Event):void
 		{
 			this.dispatchEvent(new StreamEvent(StreamEvent.ERROR, e.type));
 		}
