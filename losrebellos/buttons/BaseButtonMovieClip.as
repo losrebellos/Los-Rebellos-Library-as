@@ -1,22 +1,23 @@
 package losrebellos.buttons 
 {
 	import losrebellos.display.MovieClipPlus;
+	import losrebellos.interfaces.IEvent;
 	import losrebellos.interfaces.IInteraction;
 	import losrebellos.interfaces.IMotion;
 	import losrebellos.interfaces.IMouse;
 	import losrebellos.interfaces.IPlus;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import flash.events.MouseEvent;		
+	import flash.events.MouseEvent;
 
 	/*
 	 *
 	 * @author los rebellos
 	 *
 	 */
-	public class BaseButtonMovieClip extends MovieClipPlus implements IInteraction, IMotion, IPlus, IMouse
+	public class BaseButtonMovieClip extends MovieClipPlus implements IInteraction, IMotion, IPlus, IMouse, IEvent
 	{
 		/*
 		 * 
