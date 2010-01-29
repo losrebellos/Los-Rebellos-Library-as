@@ -18,6 +18,10 @@ package losrebellos.media.stream
 		 */
 		public var id:String;
 		public var src:String;
+		
+		public var min_buffering:Number;
+		private var _stream_ready_send:Boolean = false;
+		
 		protected var progress:Sprite = new Sprite();
 		protected var percent:Number = 0;
 		protected var __loop:int = 1;
@@ -29,17 +33,19 @@ package losrebellos.media.stream
 		 * 
 		 * CONSTRUCTOR
 		 * 
-		 */		public function Stream(_id:String, _src:String, _loop:int = 1)
+		 */		public function Stream(_id:String, _src:String, _loop:int = 1, _min_buffering:Number = -1)
 		{			super();
 			
 			id = _id;
 			src = _src;
 			loop = _loop;
 			loopCounter = 0;
+			min_buffering = _min_buffering;
+			
 			state = StreamState.NOT_STARTED;
 			
 			//if doesn't exist
-			if(!Library.instance.getItem(id))
+			if(!Library.instance.hasItem(id))
 			{
 				createStream();
 				
@@ -168,6 +174,14 @@ package losrebellos.media.stream
 		protected function streamProgress():void
 		{
 			this.dispatchEvent(new StreamEvent(StreamEvent.PROGRESS, this.getPercentLoaded()));
+		}
+		protected function streamReady():void
+		{
+			if(getPercentLoaded() > min_buffering && !_stream_ready_send)
+			{
+				_stream_ready_send = true;
+				this.dispatchEvent(new StreamEvent(StreamEvent.READY));
+			}
 		}
 		protected function streamLoaded():void
 		{

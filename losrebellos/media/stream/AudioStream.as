@@ -35,9 +35,9 @@ package losrebellos.media.stream
 		 * CONSTRUCTOR
 		 * 
 		 */
-		public function AudioStream(_id:String, _src:String, _loop:int = 1)
+		public function AudioStream(_id:String, _src:String, _loop:int = 1, _min_buffering:Number = -1)
 		{
-			super(_id, _src, _loop);
+			super(_id, _src, _loop, _min_buffering);
 		}
 		
 		
@@ -168,6 +168,7 @@ package losrebellos.media.stream
 		protected function progressHandler(e:ProgressEvent):void
 		{
 			streamProgress();
+			streamReady();
 		}
 		protected function completeHandler(e:Event):void
 		{
