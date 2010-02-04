@@ -224,6 +224,10 @@ package losrebellos.media.stream
 		{
 			this.dispatchEvent(new StreamEvent(StreamEvent.ERROR, e.type));
 		}
+		protected function streamInitialized():void
+		{
+			this.dispatchEvent(new StreamEvent(StreamEvent.STREAM_INITIALIZED));
+		}
 		
 		
 		/*

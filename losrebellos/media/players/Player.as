@@ -1,6 +1,7 @@
 package losrebellos.media.players 
 {
 	import losrebellos.display.SpritePlus;
+	import losrebellos.events.StreamEvent;
 	import losrebellos.media.players.IPlayer;
 	import losrebellos.media.stream.IStream;
 
@@ -57,7 +58,20 @@ package losrebellos.media.players
 		public function load(_stream:IStream):void
 		{
 			stream = _stream;
+			stream.addEventListener(StreamEvent.STREAM_INITIALIZED, streamInitializeHandler);
+			
 			stream.load();
+		}
+		
+		
+		/*
+		 * 
+		 * STREAM
+		 * 
+		 */
+		protected function streamInitializeHandler(e:StreamEvent):void
+		{
+			stream.removeEventListener(StreamEvent.STREAM_INITIALIZED, streamInitializeHandler);
 		}
 		
 		

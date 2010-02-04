@@ -1,5 +1,6 @@
 package losrebellos.media.players 
 {
+	import losrebellos.events.StreamEvent;
 	import losrebellos.interfaces.IScale;
 	import losrebellos.media.stream.IStream;
 	import losrebellos.media.stream.VideoStream;
@@ -31,6 +32,7 @@ package losrebellos.media.players
 		private var video_width:int;
 		private var video_height:int;
 		private var ratio:Number;
+		public var autoSize:Boolean = false;
 		private var _fit_type:String = FitType.OUTSIDE;
 		private var _position_type:String = PositionType.MIDDLE;
 		private var _rect:Rectangle = null;
@@ -80,6 +82,35 @@ package losrebellos.media.players
 			super.load(stream);
 			
 			video.attachNetStream((stream as VideoStream).stream);
+		}
+		
+		
+		/*
+		 * 
+		 * STREAM
+		 * 
+		 */
+		override protected function streamInitializeHandler(e:StreamEvent):void
+		{
+			super.streamInitializeHandler(e);
+			
+			//resizing from metadata values
+			if(autoSize)
+			{
+				video.width = (stream as VideoStream).getMetadata().width;
+				video.height = (stream as VideoStream).getMetadata().height;
+			}
+			
+			//if need to fit
+			else if(_rect)
+				resize(_rect);
+			
+			//normal resize
+			else
+			{
+				video.width = video_width;
+				video.height = video_height;
+			}
 		}
 		
 		

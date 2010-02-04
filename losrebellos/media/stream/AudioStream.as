@@ -160,6 +160,8 @@ package losrebellos.media.stream
 		protected function id3Handler(e:Event):void
 		{
 			id3 = sound.id3;
+			
+			streamInitialized();
 		}
 		protected function ioErrorHandler(e:Event):void
 		{
