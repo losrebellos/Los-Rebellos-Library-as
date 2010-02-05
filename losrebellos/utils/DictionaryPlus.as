@@ -141,5 +141,16 @@ package losrebellos.utils
 			
 			return success;
 		}
+		
+		
+		/*
+		 * 
+		 * UTILS
+		 * 
+		 */
+		public function toString():String
+		{
+			return "keys: " + getKeys();
+		}
 	}
 }
