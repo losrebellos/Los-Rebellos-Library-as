@@ -1,5 +1,6 @@
 package losrebellos.media.stream 
-{	import losrebellos.events.StreamEvent;
+{	import losrebellos.events.EventDispatcherPlus;
+	import losrebellos.events.StreamEvent;
 	import losrebellos.interfaces.IEvent;
 	import losrebellos.media.Library;
 	import losrebellos.net.NetStatus;
@@ -7,9 +8,8 @@ package losrebellos.media.stream
 
 	import flash.display.Sprite;
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 
-	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcher implements IStream, IEvent
+	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcherPlus implements IStream, IEvent
 	{
 		/*
 		 * 

@@ -72,6 +72,33 @@ package losrebellos.media.players
 		protected function streamInitializeHandler(e:StreamEvent):void
 		{
 			stream.removeEventListener(StreamEvent.STREAM_INITIALIZED, streamInitializeHandler);
+			
+			setSize();
+		}
+		protected function setSize():void
+		{
+			
+		}
+		
+		
+		/*
+		 * 
+		 * EVENT
+		 * 
+		 */
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+		{
+			stream.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		}
+		override public function hasEventListener(type:String):Boolean
+		{
+			return stream.hasEventListener(type) && super.hasEventListener(type);
+		}
+		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+		{
+			stream.removeEventListener(type, listener, useCapture);
+			super.removeEventListener(type, listener, useCapture);
 		}
 		
 		
@@ -83,6 +110,8 @@ package losrebellos.media.players
 		public function play(percent:Number = 0, loop:int = -1):void
 		{
 			stream.play(percent, loop);
+			
+			setSize();
 		}
 		public function resume():void
 		{
