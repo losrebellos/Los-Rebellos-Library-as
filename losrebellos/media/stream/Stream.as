@@ -16,8 +16,8 @@ package losrebellos.media.stream
 		 * VARIABLES
 		 * 
 		 */
-		public var id:String;
-		public var src:String;
+		public var __id:String;
+		public var __src:String;
 		
 		public var min_buffering:Number;
 		private var _stream_ready_send:Boolean = false;
@@ -86,6 +86,29 @@ package losrebellos.media.stream
 		public function getPercentPlayed():Number
 		{
 			return -1;
+		}
+		
+		
+		/*
+		 * 
+		 * ID & SRC
+		 * 
+		 */
+		public function set id(value:String):void
+		{
+			__id = value;
+		}
+		public function get id():String
+		{
+			return __id;
+		}
+		public function set src(value:String):void
+		{
+			__src = value;
+		}
+		public function get src():String
+		{
+			return __src;
 		}
 		
 		
@@ -198,7 +221,7 @@ package losrebellos.media.stream
 			this.dispatchEvent(new StreamEvent(StreamEvent.STREAM_COMPLETE));
 			
 			loopCounter++;
-			if(loop > 1 && loopCounter < loop)
+			if(loop == -1 || (loop > 1 && loopCounter < loop))
 				seek(0);
 		}
 		protected function streamPaused():void
