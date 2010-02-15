@@ -160,10 +160,11 @@ package losrebellos.media.stream
 		{
 			state = StreamState.STOPPED;
 		}
-		public function play(_percent:Number = 0, _loop:int = -1):void
+		public function play(_percent:Number = 0, _loop:int = 0):void
 		{
 			percent = _percent;
-			loop = _loop;
+			if(_loop != 0)
+				loop = _loop;
 			
 			state = StreamState.PLAYING;
 		}
@@ -221,7 +222,7 @@ package losrebellos.media.stream
 			this.dispatchEvent(new StreamEvent(StreamEvent.STREAM_COMPLETE));
 			
 			loopCounter++;
-			if(loop == -1 || (loop > 1 && loopCounter < loop))
+			if(loop == -1 || (loop >= 1 && loopCounter < loop))
 				seek(0);
 		}
 		protected function streamPaused():void

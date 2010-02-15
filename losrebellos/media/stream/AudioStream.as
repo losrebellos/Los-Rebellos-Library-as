@@ -114,7 +114,7 @@ package losrebellos.media.stream
 			
 			sound.load(url_request);
 		}
-		override public function play(_percent:Number = 0, _loop:int = -1):void
+		override public function play(_percent:Number = 0, _loop:int = 0):void
 		{
 			super.play(_percent, _loop);
 			

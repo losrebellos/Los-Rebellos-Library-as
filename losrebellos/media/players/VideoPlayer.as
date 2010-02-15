@@ -144,5 +144,18 @@ package losrebellos.media.players
 			
 			Scale.setScaledRectangle(_fit_type, _position_type, new Rectangle(0, 0, video_width, video_height), _rect, video);
 		}
+		
+		
+		/*
+		 * 
+		 * UTILS
+		 * 
+		 */
+		override public function destroyStream():void
+		{
+			super.destroyStream();
+			
+			video.attachNetStream(null);
+		}
 	}
 }
