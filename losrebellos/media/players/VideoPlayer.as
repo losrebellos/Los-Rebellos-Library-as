@@ -54,6 +54,31 @@ package losrebellos.media.players
 		
 		/*
 		 * 
+		 * WIDTH & HEIGHT
+		 * 
+		 */
+		override public function set width(value:Number):void
+		{
+			autoSize = false;
+			video.width = video_width = value;
+		}
+		override public function get width():Number
+		{
+			return video_width;
+		}
+		override public function set height(value:Number):void
+		{
+			autoSize = false;
+			video.height = video_height = value;
+		}
+		override public function get height():Number
+		{
+			return video_height;
+		}
+		
+		
+		/*
+		 * 
 		 * CONTENT
 		 * 
 		 */

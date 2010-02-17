@@ -78,7 +78,7 @@ package losrebellos.media.stream
 			if(sound && sound_channel && sound.length > 0)
 				return sound_channel.position / sound.length;
 			
-			return -1;
+			return 0;
 		}
 		
 		
@@ -92,14 +92,14 @@ package losrebellos.media.stream
 			if(sound && sound.length > 0)
 				return sound.bytesTotal / (sound.bytesLoaded / sound.length);
 			
-			return -1;
+			return 0;
 		}
 		public function get totalDuration():Number
 		{
 			if(sound && sound.length > 0)
 				return sound.length;
 			
-			return -1;
+			return 0;
 		}
 
 		

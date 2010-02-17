@@ -2,7 +2,7 @@ package losrebellos.utils
 {
 	import losrebellos.console.Console;
 
-	import flash.events.Event;
+	import flash.events.ErrorEvent;
 	import flash.utils.Dictionary;
 
 	/*
@@ -66,7 +66,7 @@ package losrebellos.utils
 					else
 						value[_function]();
 				}
-				catch(e:Event)
+				catch(e:ErrorEvent)
 				{
 					Console.output(this, e.type);
 				}

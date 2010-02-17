@@ -88,16 +88,20 @@ package losrebellos.media.players
 		 */
 		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
 		{
-			stream.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			if(stream)
+				stream.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 		override public function hasEventListener(type:String):Boolean
 		{
-			return stream.hasEventListener(type) && super.hasEventListener(type);
+			return (stream && stream.hasEventListener(type)) || super.hasEventListener(type);
 		}
 		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
 		{
-			stream.removeEventListener(type, listener, useCapture);
+			if(stream)
+				stream.removeEventListener(type, listener, useCapture);
+			
 			super.removeEventListener(type, listener, useCapture);
 		}
 		
