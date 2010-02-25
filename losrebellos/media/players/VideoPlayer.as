@@ -16,7 +16,7 @@ package losrebellos.media.players
 	 * @author los rebellos
 	 *
 	 */
-	public class VideoPlayer extends Player implements IScale
+	public class VideoPlayer extends Player implements IPlayer, IScale
 	{
 		/*
 		 * 
@@ -119,8 +119,8 @@ package losrebellos.media.players
 			//resizing from metadata values
 			if(autoSize)
 			{
-				video.width = video_width = (stream as VideoStream).getMetadata().width;
-				video.height = video_height = (stream as VideoStream).getMetadata().height;
+				video.width = video_width = (_stream as VideoStream).getMetadata().width;
+				video.height = video_height = (_stream as VideoStream).getMetadata().height;
 			}
 			
 			//if need to fit

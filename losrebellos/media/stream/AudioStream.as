@@ -1,8 +1,7 @@
 package losrebellos.media.stream 
 {
+	import losrebellos.states.StreamState;
 	import losrebellos.media.Library;
-	import losrebellos.media.stream.IStream;
-	import losrebellos.media.stream.Stream;
 
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -10,6 +9,7 @@ package losrebellos.media.stream
 	import flash.media.ID3Info;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	import flash.net.URLRequest;
 
 	/*
@@ -56,11 +56,25 @@ package losrebellos.media.stream
 			sound.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
 			sound.addEventListener(ProgressEvent.PROGRESS, progressHandler);
 			sound.addEventListener(Event.COMPLETE, completeHandler);
-			sound.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 		}
 		override protected function getStream():void
 		{
 			sound = Library.instance.getItem(id) as Sound;
+		}
+		
+		
+		/*
+		 * 
+		 * SOUND TRANSFORM
+		 * 
+		 */
+		override public function set soundTransform(value:SoundTransform):void
+		{
+			sound_channel.soundTransform = value;
+		}
+		override public function get soundTransform():SoundTransform
+		{
+			return sound_channel.soundTransform;
 		}
 		
 		
@@ -119,12 +133,14 @@ package losrebellos.media.stream
 			super.play(_percent, _loop);
 			
 			sound_channel = sound.play(_percent * sound.length, loop);
+			sound_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 		}
 		override public function resume():void
 		{
 			super.resume();
 			
 			sound_channel = sound.play(percent * sound.length, loop);
+			sound_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 		}
 		override public function pause():void
 		{
@@ -144,7 +160,10 @@ package losrebellos.media.stream
 			super.seek(_percent);
 			
 			sound_channel = sound.play(percent * sound.length, loop);
-			sound_channel.stop();
+			sound_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+			
+			if(state == StreamState.PAUSED || state == StreamState.STOPPED)
+				sound_channel.stop();
 		}
 		
 		

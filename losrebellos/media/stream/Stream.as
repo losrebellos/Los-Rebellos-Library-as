@@ -8,6 +8,7 @@ package losrebellos.media.stream
 
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.media.SoundTransform;
 
 	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcherPlus implements IStream, IEvent
 	{
@@ -153,6 +154,21 @@ package losrebellos.media.stream
 		
 		/*
 		 * 
+		 * SOUND TRANSFORM
+		 * 
+		 */
+		public function set soundTransform(value:SoundTransform):void
+		{
+			
+		}
+		public function get soundTransform():SoundTransform
+		{
+			return null;
+		}
+		
+		
+		/*
+		 * 
 		 * CONTROLS
 		 * 
 		 */
@@ -218,7 +234,6 @@ package losrebellos.media.stream
 		}
 		protected function streamComplete():void
 		{
-			state = StreamState.STOPPED;
 			this.dispatchEvent(new StreamEvent(StreamEvent.STREAM_COMPLETE));
 			
 			loopCounter++;

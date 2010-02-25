@@ -2,8 +2,9 @@ package losrebellos.media.players
 {
 	import losrebellos.display.SpritePlus;
 	import losrebellos.events.StreamEvent;
-	import losrebellos.media.players.IPlayer;
 	import losrebellos.media.stream.IStream;
+
+	import flash.media.SoundTransform;
 
 	/*
 	 *
@@ -17,7 +18,7 @@ package losrebellos.media.players
 		 * VARIABLES
 		 * 
 		 */
-		protected var stream:IStream;
+		protected var _stream:IStream;
 		
 		
 		/*
@@ -38,15 +39,30 @@ package losrebellos.media.players
 		 */
 		public function get state():String
 		{
-			return stream.state;
+			return _stream.state;
 		}
 		public function getPercentLoaded():Number
 		{
-			return stream.getPercentLoaded();
+			return _stream.getPercentLoaded();
 		}
 		public function getPercentPlayed():Number
 		{
-			return stream.getPercentPlayed();
+			return _stream.getPercentPlayed();
+		}
+		
+		
+		/*
+		 * 
+		 * SOUND TRANSFORM
+		 * 
+		 */
+		public function set streamSoundTransform(value:SoundTransform):void
+		{
+			_stream.soundTransform = value;
+		}
+		public function get streamSoundTransform():SoundTransform
+		{
+			return _stream.soundTransform;
 		}
 
 		
@@ -55,12 +71,12 @@ package losrebellos.media.players
 		 * LOAD
 		 * 
 		 */
-		public function load(_stream:IStream):void
+		public function load(stream:IStream):void
 		{
-			stream = _stream;
-			stream.addEventListener(StreamEvent.STREAM_INITIALIZED, streamInitializeHandler);
+			_stream = stream;
+			_stream.addEventListener(StreamEvent.STREAM_INITIALIZED, streamInitializeHandler);
 			
-			stream.load();
+			_stream.load();
 		}
 		
 		
@@ -71,7 +87,7 @@ package losrebellos.media.players
 		 */
 		protected function streamInitializeHandler(e:StreamEvent):void
 		{
-			stream.removeEventListener(StreamEvent.STREAM_INITIALIZED, streamInitializeHandler);
+			_stream.removeEventListener(StreamEvent.STREAM_INITIALIZED, streamInitializeHandler);
 			
 			setSize();
 		}
@@ -88,19 +104,19 @@ package losrebellos.media.players
 		 */
 		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
 		{
-			if(stream)
-				stream.addEventListener(type, listener, useCapture, priority, useWeakReference);
+			if(_stream)
+				_stream.addEventListener(type, listener, useCapture, priority, useWeakReference);
 			
 			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 		override public function hasEventListener(type:String):Boolean
 		{
-			return (stream && stream.hasEventListener(type)) || super.hasEventListener(type);
+			return (_stream && _stream.hasEventListener(type)) || super.hasEventListener(type);
 		}
 		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
 		{
-			if(stream)
-				stream.removeEventListener(type, listener, useCapture);
+			if(_stream)
+				_stream.removeEventListener(type, listener, useCapture);
 			
 			super.removeEventListener(type, listener, useCapture);
 		}
@@ -113,25 +129,25 @@ package losrebellos.media.players
 		 */
 		public function play(percent:Number = 0, loop:int = 0):void
 		{
-			stream.play(percent, loop);
+			_stream.play(percent, loop);
 			
 			setSize();
 		}
 		public function resume():void
 		{
-			stream.resume();
+			_stream.resume();
 		}
 		public function pause():void
 		{
-			stream.pause();
+			_stream.pause();
 		}
 		public function stop():void
 		{
-			stream.stop();
+			_stream.stop();
 		}
 		public function seek(percent:Number):void
 		{
-			stream.seek(percent);
+			_stream.seek(percent);
 		}
 		
 		
@@ -140,9 +156,24 @@ package losrebellos.media.players
 		 * UTILS
 		 * 
 		 */
+		
+		
+		/*
+		 * 
+		 * STREAM
+		 * 
+		 */
+		public function setStream(value:IStream):void
+		{
+			_stream = value;
+		}
+		public function getStream():IStream
+		{
+			return _stream;
+		}
 		public function destroyStream():void
 		{
-			stream.destroy();
+			_stream.destroy();
 		}
 	}
 }
