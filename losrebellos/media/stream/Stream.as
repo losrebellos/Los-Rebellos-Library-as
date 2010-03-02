@@ -17,8 +17,8 @@ package losrebellos.media.stream
 		 * VARIABLES
 		 * 
 		 */
-		public var __id:String;
-		public var __src:String;
+		private var __id:String;
+		private var __src:String;
 		
 		public var min_buffering:Number;
 		private var _stream_ready_send:Boolean = false;
@@ -87,6 +87,15 @@ package losrebellos.media.stream
 		public function getPercentPlayed():Number
 		{
 			return -1;
+		}
+		public function getPercentReady():Number
+		{
+			var percent_ready:Number = getPercentLoaded() / min_buffering;
+			
+			if(isNaN(percent_ready))
+				return 0;
+			
+			return (percent_ready > 1) ? 1 : percent_ready;
 		}
 		
 		
