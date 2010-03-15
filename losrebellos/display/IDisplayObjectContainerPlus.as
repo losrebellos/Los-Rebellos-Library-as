@@ -9,7 +9,7 @@ package losrebellos.display
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public interface IDisplayObjectContainerPlus extends IInteractiveObjectPlus 
+	public interface IDisplayObjectContainerPlus extends IInteractiveObjectPlus
 	{
 		/*
 		 * 

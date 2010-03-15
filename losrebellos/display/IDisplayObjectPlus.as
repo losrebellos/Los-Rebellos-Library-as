@@ -1,6 +1,7 @@
 package losrebellos.display 
 {
 	import losrebellos.events.IEventDispatcherPlus;
+	import losrebellos.interfaces.IPlus;
 
 	import flash.accessibility.AccessibilityProperties;
 	import flash.display.DisplayObject;
@@ -16,7 +17,7 @@ package losrebellos.display
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public interface IDisplayObjectPlus extends IEventDispatcherPlus
+	public interface IDisplayObjectPlus extends IEventDispatcherPlus, IPlus
 	{
 		function get accessibilityProperties():AccessibilityProperties;
 		

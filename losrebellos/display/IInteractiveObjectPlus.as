@@ -1,5 +1,7 @@
 package losrebellos.display 
 {
+	import losrebellos.interfaces.IMouse;
+
 	import flash.accessibility.AccessibilityImplementation;
 	import flash.ui.ContextMenu;
 
@@ -8,7 +10,7 @@ package losrebellos.display
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public interface IInteractiveObjectPlus extends IDisplayObjectPlus
+	public interface IInteractiveObjectPlus extends IDisplayObjectPlus, IMouse
 	{
 		function get accessibilityImplementation():AccessibilityImplementation;
 		
