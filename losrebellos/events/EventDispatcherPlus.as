@@ -1,7 +1,5 @@
 package losrebellos.events 
 {
-	import losrebellos.interfaces.IEvent;
-
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 
@@ -10,7 +8,7 @@ package losrebellos.events
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public class EventDispatcherPlus extends EventDispatcher implements IEvent
+	public class EventDispatcherPlus extends EventDispatcher implements IEventDispatcherPlus
 	{
 		/*
 		 * 

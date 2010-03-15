@@ -1,7 +1,5 @@
 package losrebellos.display 
 {
-	import losrebellos.interfaces.IEvent;
-
 	import flash.display.Loader;
 
 	/*
@@ -9,7 +7,7 @@ package losrebellos.display
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public class LoaderPlus extends Loader implements IEvent 
+	public class LoaderPlus extends Loader implements IloaderPlus
 	{
 		/*
 		 * 
@@ -32,6 +30,18 @@ package losrebellos.display
 			useWeakReference;
 			
 			super.addEventListener(type, listener, useCapture, priority, true);
+		}
+		
+		
+		/*
+		 * 
+		 * UTILS
+		 * 
+		 */
+		public function removeAllChildren():void
+		{
+			while(this.numChildren)
+				this.removeChildAt(0);
 		}
 	}
 }
