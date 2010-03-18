@@ -1,7 +1,6 @@
 package losrebellos.media.stream 
 {	import losrebellos.events.EventDispatcherPlus;
 	import losrebellos.events.StreamEvent;
-	import losrebellos.interfaces.IEvent;
 	import losrebellos.media.Library;
 	import losrebellos.net.NetStatus;
 	import losrebellos.states.StreamState;
@@ -10,7 +9,7 @@ package losrebellos.media.stream
 	import flash.events.Event;
 	import flash.media.SoundTransform;
 
-	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcherPlus implements IStream, IEvent
+	/*	 *	 * @author los rebellos	 *	 */	public class Stream extends EventDispatcherPlus implements IStream
 	{
 		/*
 		 * 

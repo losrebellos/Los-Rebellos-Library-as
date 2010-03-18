@@ -1,7 +1,7 @@
 package losrebellos.media.stream 
 {
-	import losrebellos.states.StreamState;
 	import losrebellos.media.Library;
+	import losrebellos.states.StreamState;
 
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;

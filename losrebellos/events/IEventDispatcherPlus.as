@@ -1,6 +1,5 @@
 package losrebellos.events 
 {
-	import losrebellos.interfaces.IEvent;
 	import flash.events.IEventDispatcher;
 
 	/*
@@ -8,8 +7,8 @@ package losrebellos.events
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public interface IEventDispatcherPlus extends IEventDispatcher, IEvent
+	public interface IEventDispatcherPlus extends IEventDispatcher
 	{
-		
+		function addEventListener(type : String, listener : Function, useCapture : Boolean = false, priority : int = 0, useWeakReference : Boolean = false) : void;
 	}
 }

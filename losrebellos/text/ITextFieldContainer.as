@@ -1,7 +1,6 @@
 package losrebellos.text 
 {
 	import losrebellos.display.ISpritePlus;
-	import losrebellos.text.ITextFieldPlus;
 
 	/*
 	 *

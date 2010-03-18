@@ -1,5 +1,5 @@
 package losrebellos.events 
-{	import flash.events.Event;		
+{	import flash.events.Event;
 
 	/*	 *	 * @author los rebellos	 *	 */	public class VideoEvent extends EventPlus
 	{
