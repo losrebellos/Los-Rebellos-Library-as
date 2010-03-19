@@ -1,12 +1,10 @@
 package losrebellos.lospistoleros.data 
 {
-	import losrebellos.console.Console;
 	import losrebellos.events.EventDispatcherPlus;
 
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.system.ApplicationDomain;
-	import flash.text.Font;
 	import flash.utils.ByteArray;
 
 	/*
@@ -56,14 +54,7 @@ package losrebellos.lospistoleros.data
 			
 			//register the font
 			for(var i:int = 0; i<tab_fonts.length; i++)
-			{
-				var FontClass:Class = app.getDefinition(String(tab_fonts[i])) as Class;
-				var font:Font = new FontClass as Font;
-				
-				Fonts.instance.add(font.fontName, FontClass);
-				
-				Console.simpleOutput("EmbeddedFonts:EmbeddedFonts: register font => " + font.fontName);
-			}
+				Fonts.instance.add(tab_fonts[i], app.getDefinition(tab_fonts[i]) as Class);
 		}
 	}
 }
