@@ -9,6 +9,6 @@ package losrebellos.events
 	 */
 	public interface IEventDispatcherPlus extends IEventDispatcher
 	{
-		function addEventListener(type : String, listener : Function, useCapture : Boolean = false, priority : int = 0, useWeakReference : Boolean = false) : void;
+//		function addEventListener(type : String, listener : Function, useCapture : Boolean = false, priority : int = 0, useWeakReference : Boolean = false) : void;
 	}
 }
