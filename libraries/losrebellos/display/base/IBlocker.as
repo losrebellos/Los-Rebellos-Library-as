@@ -1,0 +1,1 @@
+package losrebellos.display.base {	/*	 *	 * @author los rebellos	 *	 */	public interface IBlocker 	{		function on():void;		function off():void;	}}

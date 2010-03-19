@@ -1,0 +1,1 @@
+package losrebellos.interfaces {	/*	 *	 * @author los rebellos	 *	 */	public interface IScale 	{		function set fitType(value:String):void;		function get fitType():String;				function set positionType(value:String):void;		function get positionType():String	}}
