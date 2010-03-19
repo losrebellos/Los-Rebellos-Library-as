@@ -1,1 +1,0 @@
-package losrebellos.scale {	/*	 *	 * @author los rebellos	 *	 */	public class FitType 	{		public static const INSIDE:String = "fitType/inside";		public static const OUTSIDE:String = "fitType/outside";		public static const WIDTH:String = "fitType/width";		public static const HEIGHT:String = "fitType/height";	}}

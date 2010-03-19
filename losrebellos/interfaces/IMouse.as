@@ -1,1 +1,0 @@
-package losrebellos.interfaces {	/*	 *	 * @author los rebellos	 *	 */	public interface IMouse 	{		function set mouse(value:Boolean):void;		function get mouse():Boolean;	}}
