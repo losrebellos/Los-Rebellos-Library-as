@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assets>
+
+    <asset src="swfs/assets.swf" type="movieclip" id="assets"/>
+    <asset src="styles/styles.css" type="css" id="general_css"/>
+    
+    <content>
+        <asset src="xml/content/content_en_GB.xml" type="xml" id="en_GB">
+            <font src="swfs/fonts.swf" type="movieclip" id="fonts"/>
+        </asset>
+        <asset src="xml/content/content_en_US.xml" type="xml" id="en_US">
+            <font src="swfs/fonts.swf" type="movieclip" id="fonts"/>
+        </asset>
+    </content>
+    
+</assets>
