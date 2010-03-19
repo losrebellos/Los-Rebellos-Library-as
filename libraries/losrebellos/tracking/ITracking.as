@@ -1,1 +1,0 @@
-package losrebellos.tracking {	//-----//	//----- @author los rebellos -----//	public interface ITracking 	{		function track(o:Object):Boolean;	}}

@@ -1,1 +1,0 @@
-package losrebellos.interfaces {	/*	 *	 * @author los rebellos	 *	 */	public interface IInteraction	{		function initialize():void;		function finalize():void;	}}

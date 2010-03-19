@@ -1,1 +1,0 @@
-package losrebellos.text {	/*	 *	 * @author los rebellos	 *	 */	public interface ITextFormatPlus 	{		function setFromCSS(object:Object):void;				function toString():String;	}}

@@ -1,1 +1,0 @@
-package losrebellos.display {	import losrebellos.display.IDisplayObjectContainer;	/*	 *	 * @author los rebellos	 *	 */	public interface ISpritePlus extends IDisplayObjectContainer 	{	}}
