@@ -1,0 +1,1 @@
+package losrebellos.interfaces {	/*	 *	 * @author los rebellos	 *	 */	public interface IMotion 	{		function animateIn():void;		function animateOut():void;	}}
