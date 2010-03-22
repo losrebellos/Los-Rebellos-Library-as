@@ -2,11 +2,11 @@ package losrebellos.buttons
 {
 	import losrebellos.display.IMovieClipPlus;
 	import losrebellos.display.MovieClipPlus;
+	import losrebellos.display.SpritePlus;
 	import losrebellos.interfaces.IInteraction;
 	import losrebellos.interfaces.IMotion;
 
 	import flash.display.DisplayObject;
-	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 
@@ -22,7 +22,7 @@ package losrebellos.buttons
 		 * VARIABLES
 		 * 
 		 */
-		public var zone:MovieClip;
+		public var _zone:SpritePlus;
 		
 		
 		/*
@@ -53,17 +53,17 @@ package losrebellos.buttons
 		 */
 		protected function addEvents():void
 		{
-			zone.buttonMode = zone.useHandCursor = true;
-			zone.addEventListener(MouseEvent.ROLL_OVER,rollOverHandler);
-			zone.addEventListener(MouseEvent.ROLL_OUT,rollOutHandler);
-			zone.addEventListener(MouseEvent.CLICK,clickHandler);
+			_zone.buttonMode = _zone.useHandCursor = true;
+			_zone.addEventListener(MouseEvent.ROLL_OVER,rollOverHandler);
+			_zone.addEventListener(MouseEvent.ROLL_OUT,rollOutHandler);
+			_zone.addEventListener(MouseEvent.CLICK,clickHandler);
 		}
 		protected function removeEvents():void
 		{
-			zone.buttonMode = zone.useHandCursor = false;
-			zone.removeEventListener(MouseEvent.ROLL_OVER,rollOverHandler);
-			zone.removeEventListener(MouseEvent.ROLL_OUT,rollOutHandler);
-			zone.removeEventListener(MouseEvent.CLICK,clickHandler);
+			_zone.buttonMode = _zone.useHandCursor = false;
+			_zone.removeEventListener(MouseEvent.ROLL_OVER,rollOverHandler);
+			_zone.removeEventListener(MouseEvent.ROLL_OUT,rollOutHandler);
+			_zone.removeEventListener(MouseEvent.CLICK,clickHandler);
 		}
 		
 		
