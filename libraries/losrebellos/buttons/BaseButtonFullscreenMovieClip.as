@@ -1,14 +1,13 @@
 package losrebellos.buttons 
 {
 	import flash.display.StageDisplayState;
-	import flash.events.MouseEvent;
 
 	/*
 	 *
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public class BaseButtonFullscreenMovieClip extends BaseButtonMovieClip
+	public class BaseButtonFullscreenMovieClip extends BaseButtonSwitchMovieClip
 	{
 		/*
 		 *
@@ -23,32 +22,14 @@ package losrebellos.buttons
 		
 		/*
 		 * 
-		 * HANDLERS
-		 * 
-		 */
-		override protected function clickHandler(e:MouseEvent = null):void
-		{
-			if(stage.displayState == StageDisplayState.NORMAL)
-			{
-				fullscreenOn();
-			}
-			else
-			{
-				fullscreenOff();
-			}
-		}
-		
-		
-		/*
-		 * 
 		 * STAGE
 		 * 
 		 */
-		protected function fullscreenOn():void
+		override protected function switchOn():void
 		{
 			stage.displayState = StageDisplayState.FULL_SCREEN;
 		}
-		protected function fullscreenOff():void
+		override protected function switchOff():void
 		{
 			stage.displayState = StageDisplayState.NORMAL;
 		}

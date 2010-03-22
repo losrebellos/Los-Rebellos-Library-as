@@ -1,13 +1,7 @@
 package losrebellos.buttons 
 {
-	import losrebellos.display.IMovieClipPlus;
-	import losrebellos.display.MovieClipPlus;
 	import losrebellos.display.SpritePlus;
-	import losrebellos.interfaces.IInteraction;
-	import losrebellos.interfaces.IMotion;
 
-	import flash.display.DisplayObject;
-	import flash.events.Event;
 	import flash.events.MouseEvent;
 
 	/*
@@ -15,7 +9,7 @@ package losrebellos.buttons
 	 * @author los rebellos
 	 *
 	 */
-	public class BaseButtonMovieClip extends MovieClipPlus implements IMovieClipPlus, IInteraction, IMotion
+	public class BaseButtonMovieClip extends AbstractBaseButtonMovieClip
 	{
 		/*
 		 * 
@@ -33,16 +27,6 @@ package losrebellos.buttons
 		public function BaseButtonMovieClip()
 		{
 			super();
-			
-			this.gotoAndStop(1);
-		}
-		public function initialize():void
-		{
-			addEvents();
-		}
-		public function finalize():void
-		{
-			removeEvents();
 		}
 		
 		
@@ -51,16 +35,18 @@ package losrebellos.buttons
 		 * EVENTS
 		 * 
 		 */
-		protected function addEvents():void
+		override protected function addEvents():void
 		{
-			_zone.buttonMode = _zone.useHandCursor = true;
+			super.addEvents();
+			
 			_zone.addEventListener(MouseEvent.ROLL_OVER,rollOverHandler);
 			_zone.addEventListener(MouseEvent.ROLL_OUT,rollOutHandler);
 			_zone.addEventListener(MouseEvent.CLICK,clickHandler);
 		}
-		protected function removeEvents():void
+		override protected function removeEvents():void
 		{
-			_zone.buttonMode = _zone.useHandCursor = false;
+			super.removeEvents();
+			
 			_zone.removeEventListener(MouseEvent.ROLL_OVER,rollOverHandler);
 			_zone.removeEventListener(MouseEvent.ROLL_OUT,rollOutHandler);
 			_zone.removeEventListener(MouseEvent.CLICK,clickHandler);
@@ -83,18 +69,6 @@ package losrebellos.buttons
 		protected function clickHandler(e:MouseEvent = null):void
 		{
 			
-		}
-		
-		
-		/*
-		 * 
-		 * UTILS
-		 * 
-		 */
-		override public function dispose(e:Event = null):DisplayObject
-		{
-			removeEvents();
-			return super.dispose();
 		}
 	}
 }
