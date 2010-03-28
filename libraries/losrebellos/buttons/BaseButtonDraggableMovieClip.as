@@ -2,6 +2,7 @@ package losrebellos.buttons
 {
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Rectangle;
 
 	/*
 	 *
@@ -10,6 +11,14 @@ package losrebellos.buttons
 	 */
 	public class BaseButtonDraggableMovieClip extends AbstractBaseButtonMovieClip 
 	{
+		/*
+		 * 
+		 * VARIABLES
+		 * 
+		 */
+		protected var _dragRect:Rectangle;
+		
+		
 		/*
 		 * 
 		 * CONSTRUCTOR
@@ -52,6 +61,8 @@ package losrebellos.buttons
 			stage.addEventListener(Event.MOUSE_LEAVE, mouseUpHandler);
 			
 			stage.addEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
+			
+			mouseMoveStartHandler((e && e is Event) ? (new MouseEvent(MouseEvent.MOUSE_UP)) : (e as MouseEvent));
 		}
 		protected function mouseUpHandler(e:Event = null):void
 		{
@@ -61,7 +72,7 @@ package losrebellos.buttons
 			
 			stage.removeEventListener(MouseEvent.MOUSE_MOVE, mouseMoveHandler);
 			
-			mouseMoveStopHandler((e && e is Event) ? (new MouseEvent(MouseEvent.MOUSE_UP)) : e);
+			mouseMoveStopHandler((e && e is Event) ? (new MouseEvent(MouseEvent.MOUSE_UP)) : (e as MouseEvent));
 		}
 		
 		
@@ -70,13 +81,17 @@ package losrebellos.buttons
 		 * MVT
 		 * 
 		 */
+		protected function mouseMoveStartHandler(e:MouseEvent = null):void
+		{
+			this.startDrag(false, _dragRect);
+		}
 		protected function mouseMoveHandler(e:MouseEvent = null):void
 		{
 			
 		}
 		protected function mouseMoveStopHandler(e:MouseEvent = null):void
 		{
-			
+			this.stopDrag();
 		}
 	}
 }

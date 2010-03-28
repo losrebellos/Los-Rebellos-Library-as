@@ -1,7 +1,5 @@
 package losrebellos.buttons 
 {
-	import losrebellos.display.SpritePlus;
-
 	import flash.events.MouseEvent;
 
 	/*
@@ -11,14 +9,6 @@ package losrebellos.buttons
 	 */
 	public class BaseButtonMovieClip extends AbstractBaseButtonMovieClip
 	{
-		/*
-		 * 
-		 * VARIABLES
-		 * 
-		 */
-		public var _zone:SpritePlus;
-		
-		
 		/*
 		 * 
 		 * CONSTRUCTOR
