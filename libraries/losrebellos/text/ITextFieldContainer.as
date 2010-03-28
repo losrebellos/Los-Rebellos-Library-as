@@ -9,5 +9,6 @@ package losrebellos.text
 	 */
 	public interface ITextFieldContainer extends ISpritePlus, ITextFieldPlus 
 	{
+		
 	}
 }
