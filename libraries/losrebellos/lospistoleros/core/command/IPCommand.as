@@ -1,1 +1,1 @@
-package losrebellos.lospistoleros.core.command {	import flash.events.IEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IPCommand extends IEventDispatcher	{		function execute():Boolean;	}}
+package losrebellos.lospistoleros.core.command {	import losrebellos.lospistoleros.core.events.IPEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IPCommand extends IPEventDispatcher	{		function execute():Boolean;	}}
