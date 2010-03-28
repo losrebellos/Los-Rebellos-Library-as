@@ -4,6 +4,7 @@ package losrebellos.display
 
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
+	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
@@ -23,6 +24,8 @@ package losrebellos.display
 		public function LoaderPlus()
 		{
 			super();
+			
+			StageManager.registerStage(this);
 		}
 		
 		
@@ -148,6 +151,10 @@ package losrebellos.display
 		{
 			while(this.numChildren)
 				this.removeChildAt(0);
+		}
+		public function get managedStage():Stage
+		{
+			return StageManager.getStage();
 		}
 		
 		
