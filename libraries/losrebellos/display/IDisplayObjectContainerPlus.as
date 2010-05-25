@@ -78,6 +78,8 @@ package losrebellos.display
 		 * CUSTOM
 		 * 
 		 */
+		function getAllChildren():Array;
+		
 		function removeAllChildren():void;
 	}
 }

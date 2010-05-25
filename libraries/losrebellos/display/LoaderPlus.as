@@ -82,7 +82,7 @@ package losrebellos.display
 		
 		/*
 		 * 
-		 * INDEX UTILS
+		 * INDEX & CHILDREN UTILS
 		 * 
 		 */
 		protected function setIndex(value : int):Boolean
@@ -127,6 +127,21 @@ package losrebellos.display
 			}
 			return -1;
 		}
+		public function getAllChildren():Array
+		{
+			var children:Array = [];
+			var childrenLength:int = this.numChildren;
+			
+			for(var i:int = 0; i< childrenLength; i++)
+				children.push(this.getChildAt(i));
+			
+			return children;
+		}
+		public function removeAllChildren():void
+		{
+			while(this.numChildren)
+				this.removeChildAt(0);
+		}
 		
 		
 		/*
@@ -146,11 +161,6 @@ package losrebellos.display
 				Console.output("", "");
 			}
 			return null;
-		}
-		public function removeAllChildren():void
-		{
-			while(this.numChildren)
-				this.removeChildAt(0);
 		}
 		public function get managedStage():Stage
 		{
