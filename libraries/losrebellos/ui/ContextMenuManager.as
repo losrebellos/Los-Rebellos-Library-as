@@ -79,7 +79,9 @@ package losrebellos.ui
 		public static function addContextMenuItem(item:ContextMenuItem, item_select:Function = null):int
 		{
 			if(item_select != null)
+			{
 				_content_menu.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, item_select, false, 0, true);
+			}
 			
 			_content_menu.customItems.push(item);
 			

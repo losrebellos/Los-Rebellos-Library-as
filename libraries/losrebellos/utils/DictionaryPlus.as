@@ -17,7 +17,7 @@ package losrebellos.utils
 		 * CONSTRUCTOR
 		 * 
 		 */
-		public function DictionaryPlus(weakKeys:Boolean = false)
+		public function DictionaryPlus(weakKeys:Boolean = true)
 		{
 			super(weakKeys);
 		}

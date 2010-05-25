@@ -102,7 +102,7 @@ package losrebellos.media.players
 		 * EVENT
 		 * 
 		 */
-		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = true):void
 		{
 			if(_stream)
 				_stream.addEventListener(type, listener, useCapture, priority, useWeakReference);

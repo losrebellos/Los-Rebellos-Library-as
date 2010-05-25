@@ -282,12 +282,12 @@ package losrebellos.media.stream
 		 * EVENTS
 		 * 
 		 */
-		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = true):void
 		{
 			if(type == Event.ENTER_FRAME)
-				progress.addEventListener(type, listener, useCapture, priority, true);
+				progress.addEventListener(type, listener, useCapture, priority, useWeakReference);
 			else
-				super.addEventListener(type, listener, useCapture, priority, true);
+				super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 		override public function hasEventListener(type:String):Boolean
 		{

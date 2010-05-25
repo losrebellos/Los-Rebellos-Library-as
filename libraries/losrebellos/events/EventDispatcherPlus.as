@@ -26,11 +26,9 @@ package losrebellos.events
 		 * EVENTS
 		 * 
 		 */
-		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = true):void
 		{
-			useWeakReference;
-			
-			super.addEventListener(type, listener, useCapture, priority, true);
+			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 	}
 }
