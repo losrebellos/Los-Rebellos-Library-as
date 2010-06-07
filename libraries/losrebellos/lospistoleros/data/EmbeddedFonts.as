@@ -24,8 +24,8 @@ package losrebellos.lospistoleros.data
 		 * VARIABLES
 		 * 
 		 */
-		protected var loader:Loader;
-		protected var tab_fonts:Array;
+		protected var _loader:Loader;
+		protected var _tabFonts:Array;
 		
 		
 		/*
@@ -38,23 +38,25 @@ package losrebellos.lospistoleros.data
 			super();
 			
 			//get the fonts list
-			tab_fonts = SWF.parse(ba_fonts);
+			_tabFonts = SWF.parse(ba_fonts);
 			
 			//load the bytes
-			loader = new Loader();
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, bytesCompleteHandler);
-			loader.loadBytes(ba_fonts);
+			_loader = new Loader();
+			_loader.contentLoaderInfo.addEventListener(Event.COMPLETE, bytesCompleteHandler);
+			_loader.loadBytes(ba_fonts);
 		}
 		protected function bytesCompleteHandler(e:Event):void
 		{
-			loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, bytesCompleteHandler);
+			_loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, bytesCompleteHandler);
 			
 			//get the application domain
-			var app:ApplicationDomain = loader.contentLoaderInfo.applicationDomain;
+			var app:ApplicationDomain = _loader.contentLoaderInfo.applicationDomain;
 			
 			//register the font
-			for(var i:int = 0; i<tab_fonts.length; i++)
-				Fonts.instance.add(tab_fonts[i], app.getDefinition(tab_fonts[i]) as Class);
+			for(var i:int = 0; i<_tabFonts.length; i++)
+			{
+				Fonts.instance.add(_tabFonts[i], app.getDefinition(_tabFonts[i]) as Class);
+			}
 		}
 	}
 }
