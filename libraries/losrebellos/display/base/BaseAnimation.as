@@ -3,6 +3,7 @@ package losrebellos.display.base
 	import losrebellos.display.IMovieClipPlus;
 	import losrebellos.display.SpritePlus;
 	import losrebellos.events.AnimationEvent;
+	import losrebellos.states.AnimationState;
 
 	import flash.display.FrameLabel;
 	import flash.display.MovieClip;
@@ -31,7 +32,20 @@ package losrebellos.display.base
 		protected var frames:Array = [];
 		
 		//elements
-		protected var animation:MovieClip;
+		protected var _animation:MovieClip;
+		
+		
+		/*
+		 *
+		 * CONSTRUCTOR
+		 *
+		 */
+		public function BaseAnimation(animation:MovieClip)
+		{
+			_animation = animation;
+			
+			super();
+		}
 		
 		
 		/*
@@ -41,13 +55,25 @@ package losrebellos.display.base
 		 */
 		override protected function createContent():void
 		{
-			animation.stop();
+			_animation.stop();
 			
 			parseFrames();
 		}
 		override protected function addContent():void
 		{
-			this.addChild(animation);
+			this.addChild(_animation);
+		}
+		
+		
+		/*
+		 * 
+		 * STATE
+		 * 
+		 */
+		private var _state:String = AnimationState.STOPPED;
+		public function get state():String
+		{
+			return _state;
 		}
 		
 		
@@ -58,9 +84,9 @@ package losrebellos.display.base
 		 */
 		private function parseFrames():void
 		{
-			for(var i:int = 0; i<animation.currentLabels.length; i++)
+			for(var i:int = 0; i<_animation.currentLabels.length; i++)
 			{
-				var frame_label:FrameLabel = animation.currentLabels[i];
+				var frame_label:FrameLabel = _animation.currentLabels[i];
 				frames[frame_label.frame] = frame_label.name;
 			}
 		}
@@ -74,10 +100,13 @@ package losrebellos.display.base
 		}
 		public function get currentFrameLabel():FrameLabel
 		{
-			return new FrameLabel(animation.currentLabel, animation.currentFrame);
+			return new FrameLabel(_animation.currentLabel, _animation.currentFrame);
 		}
-		public function getFrameLabel(frame:Object):FrameLabel
+		public function getFrameLabel(frame:Object = null):FrameLabel
 		{
+			if(!frame)
+				return new FrameLabel(this.currentLabel, this.currentFrame);
+			
 			if(frame is String)
 				return new FrameLabel(String(frame), frames.indexOf(frame));
 				
@@ -93,12 +122,12 @@ package losrebellos.display.base
 		public function play():void
 		{
 			this.cleanStop();
-			this.startPlayHeadHandler(1, animation.totalFrames, null, -1);
+			this.startPlayHeadHandler(1, _animation.totalFrames, null, -1);
 		}
 		public function gotoAndPlay(frame:Object, scene:String = null):void
 		{
 			this.cleanGotoAndStop(frame, scene);
-			this.startPlayHeadHandler(1, animation.totalFrames, scene, -1);
+			this.startPlayHeadHandler(1, _animation.totalFrames, scene, -1);
 		}
 		
 		
@@ -110,12 +139,12 @@ package losrebellos.display.base
 		public function playBackward():void
 		{
 			this.cleanStop();
-			this.startPlayHeadHandler(animation.totalFrames, 1, null, -1);
+			this.startPlayHeadHandler(_animation.totalFrames, 1, null, -1);
 		}
 		public function gotoAndPlayBackward(frame : Object, scene : String = null):void
 		{
 			this.cleanGotoAndStop(frame, scene);
-			this.startPlayHeadHandler(animation.totalFrames, 1, scene, -1);
+			this.startPlayHeadHandler(_animation.totalFrames, 1, scene, -1);
 		}
 		
 		
@@ -127,12 +156,12 @@ package losrebellos.display.base
 		public function loop(loop:int = 1):void
 		{
 			this.cleanStop();
-			this.startPlayHeadHandler(1, animation.totalFrames, null, loop);
+			this.startPlayHeadHandler(1, _animation.totalFrames, null, loop);
 		}
 		public function gotoAndLoop(frame:Object, scene:String = null, loop:int = 1):void
 		{
 			this.cleanGotoAndStop(frame, scene);
-			this.startPlayHeadHandler(1, animation.totalFrames, scene, loop);
+			this.startPlayHeadHandler(1, _animation.totalFrames, scene, loop);
 		}
 		
 		
@@ -144,12 +173,12 @@ package losrebellos.display.base
 		public function loopBackward(loop:int = 1):void
 		{
 			this.cleanStop();
-			this.startPlayHeadHandler(animation.totalFrames, 1, null, loop);
+			this.startPlayHeadHandler(_animation.totalFrames, 1, null, loop);
 		}
 		public function gotoAndLoopBackward(frame:Object, scene:String = null, loop:int = 1):void
 		{
 			this.cleanGotoAndStop(frame, scene);
-			this.startPlayHeadHandler(animation.totalFrames, 1, scene, loop);
+			this.startPlayHeadHandler(_animation.totalFrames, 1, scene, loop);
 		}
 		
 		
@@ -161,7 +190,7 @@ package losrebellos.display.base
 		public function playTo(frame : Object, scene : String = null, loop:int = 1):void
 		{
 			this.cleanStop();
-			this.startPlayHeadHandler(animation.currentFrame, frame, scene, loop);
+			this.startPlayHeadHandler(_animation.currentFrame, frame, scene, loop);
 		}
 		public function gotoAndPlayTo(start_frame : Object, end_frame : Object, scene : String = null, loop:int = 1):void
 		{
@@ -186,19 +215,21 @@ package losrebellos.display.base
 		}
 		protected function playHeadHandler(e:Event):void
 		{
+			_state = AnimationState.PLAYING;
+			
 			//events
-			if(animation.currentFrame == 1)
+			if(_animation.currentFrame == 1)
 				this.dispatchEvent(new AnimationEvent(AnimationEvent.FIRST_FRAME));
-			if(animation.currentFrame == animation.totalFrames)
+			if(_animation.currentFrame == _animation.totalFrames)
 				this.dispatchEvent(new AnimationEvent(AnimationEvent.LAST_FRAME));
-			if(animation.currentFrame == starting_frame.frame)
+			if(_animation.currentFrame == starting_frame.frame)
 				this.dispatchEvent(new AnimationEvent(AnimationEvent.STARTING_FRAME));
 			
 			//move play head
-			if(animation.currentFrame < targeted_frame.frame)
-				animation.nextFrame();
-			else if(animation.currentFrame > targeted_frame.frame)
-				animation.prevFrame();
+			if(_animation.currentFrame < targeted_frame.frame)
+				_animation.nextFrame();
+			else if(_animation.currentFrame > targeted_frame.frame)
+				_animation.prevFrame();
 			else
 			{
 				this.dispatchEvent(new AnimationEvent(AnimationEvent.ENDING_FRAME));
@@ -233,13 +264,17 @@ package losrebellos.display.base
 		{
 			this.removeEventListener(Event.ENTER_FRAME, playHeadHandler);
 			
-			animation.gotoAndStop(frame, scene);
+			_animation.gotoAndStop(frame, scene);
+			
+			_state = AnimationState.STOPPED;
 		}
 		protected function cleanStop():void
 		{
 			this.removeEventListener(Event.ENTER_FRAME, playHeadHandler);
 			
-			animation.stop();
+			_animation.stop();
+			
+			_state = AnimationState.STOPPED;
 		}
 		
 		
@@ -250,67 +285,67 @@ package losrebellos.display.base
 		 */
 		public function get currentLabels():Array
 		{
-			return animation.currentLabels;
+			return _animation.currentLabels;
 		}
 		public function get currentLabel():String
 		{
-			return animation.currentLabel;
+			return _animation.currentLabel;
 		}
 		public function get totalFrames():int
 		{
-			return animation.totalFrames;
+			return _animation.totalFrames;
 		}
 		public function prevScene():void
 		{
-			animation.prevScene();
+			_animation.prevScene();
 		}
 		public function addFrameScript(...args):void
 		{
-			animation.addFrameScript();
+			_animation.addFrameScript();
 		}
 		public function nextFrame():void
 		{
-			animation.nextFrame();
+			_animation.nextFrame();
 		}
 		public function get enabled():Boolean
 		{
-			return animation.enabled;
+			return _animation.enabled;
 		}
 		public function get framesLoaded():int
 		{
-			return animation.framesLoaded;
+			return _animation.framesLoaded;
 		}
 		public function get scenes():Array
 		{
-			return animation.scenes;
+			return _animation.scenes;
 		}
 		public function nextScene():void
 		{
-			animation.nextScene();
+			_animation.nextScene();
 		}
 		public function get currentFrame():int
 		{
-			return animation.currentFrame;
+			return _animation.currentFrame;
 		}
 		public function set enabled(value:Boolean):void
 		{
-			animation.enabled = value;
+			_animation.enabled = value;
 		}
 		public function get currentScene():Scene
 		{
-			return animation.currentScene;
+			return _animation.currentScene;
 		}
 		public function set trackAsMenu(value:Boolean) : void
 		{
-			animation.trackAsMenu = value;
+			_animation.trackAsMenu = value;
 		}
 		public function get trackAsMenu():Boolean
 		{
-			return animation.trackAsMenu;
+			return _animation.trackAsMenu;
 		}
 		public function prevFrame():void
 		{
-			animation.prevFrame();
+			_animation.prevFrame();
 		}
 	}
 }
