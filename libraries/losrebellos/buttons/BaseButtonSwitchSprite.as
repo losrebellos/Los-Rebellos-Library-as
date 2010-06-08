@@ -38,12 +38,14 @@ package losrebellos.buttons
 			if(!_switch)
 			{
 				_switch = true;
-				switchOn();
+				switchOnAction();
+				switchOnUI();
 			}
 			else
 			{
 				_switch = false;
-				switchOff();
+				switchOffAction();
+				switchOffUI();
 			}
 		}
 		
@@ -53,11 +55,19 @@ package losrebellos.buttons
 		 * STAGE
 		 * 
 		 */
-		protected function switchOn():void
+		protected function switchOnAction():void
 		{
 			
 		}
-		protected function switchOff():void
+		protected function switchOffAction():void
+		{
+			
+		}
+		protected function switchOnUI():void
+		{
+			
+		}
+		protected function switchOffUI():void
 		{
 			
 		}
