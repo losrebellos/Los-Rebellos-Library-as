@@ -18,6 +18,8 @@ package losrebellos.media.players
 		function getPercentPlayed():Number;
 		
 		function load(_stream:IStream):void;
+		function unLoad():void;
+		
 		function play(percent:Number = 0, loop:int = 0):void;
 		function resume():void;
 		function pause():void;

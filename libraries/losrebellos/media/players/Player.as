@@ -78,6 +78,14 @@ package losrebellos.media.players
 			
 			_stream.load();
 		}
+		public function unLoad():void
+		{
+			if(_stream)
+			{
+				_stream.unLoad();
+				_stream = null;
+			}
+		}
 		
 		
 		/*

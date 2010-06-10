@@ -24,10 +24,10 @@ package losrebellos.media.stream
 		 * VARIABLES
 		 * 
 		 */
-		private var url_request:URLRequest;
-		private var sound:Sound;
-		private var sound_channel:SoundChannel;
-		private var id3:ID3Info;
+		protected var _urlRequest:URLRequest;
+		protected var _sound:Sound;
+		protected var _soundChannel:SoundChannel;
+		protected var _id3:ID3Info;
 		
 		
 		/*
@@ -35,9 +35,9 @@ package losrebellos.media.stream
 		 * CONSTRUCTOR
 		 * 
 		 */
-		public function AudioStream(_id:String, _src:String, _loop:int = 1, _min_buffering:Number = -1)
+		public function AudioStream(id:String, src:String, loop:int = 1, minBuffer:Number = -1)
 		{
-			super(_id, _src, _loop, _min_buffering);
+			super(id, src, loop, minBuffer);
 		}
 		
 		
@@ -48,18 +48,18 @@ package losrebellos.media.stream
 		 */
 		override protected function createStream():void
 		{
-			url_request = new URLRequest(src);
-			sound = new Sound();
+			_urlRequest = new URLRequest(_src);
+			_sound = new Sound();
 			
-			sound.addEventListener(Event.OPEN, openHandler);
-			sound.addEventListener(Event.ID3, id3Handler);
-			sound.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
-			sound.addEventListener(ProgressEvent.PROGRESS, progressHandler);
-			sound.addEventListener(Event.COMPLETE, completeHandler);
+			_sound.addEventListener(Event.OPEN, openHandler);
+			_sound.addEventListener(Event.ID3, id3Handler);
+			_sound.addEventListener(IOErrorEvent.IO_ERROR, ioErrorHandler);
+			_sound.addEventListener(ProgressEvent.PROGRESS, progressHandler);
+			_sound.addEventListener(Event.COMPLETE, completeHandler);
 		}
 		override protected function getStream():void
 		{
-			sound = Library.instance.getItem(id) as Sound;
+			_sound = Library.instance.getItem(_id) as Sound;
 		}
 		
 		
@@ -70,11 +70,11 @@ package losrebellos.media.stream
 		 */
 		override public function set soundTransform(value:SoundTransform):void
 		{
-			sound_channel.soundTransform = value;
+			_soundChannel.soundTransform = value;
 		}
 		override public function get soundTransform():SoundTransform
 		{
-			return sound_channel.soundTransform;
+			return _soundChannel.soundTransform;
 		}
 		
 		
@@ -85,12 +85,12 @@ package losrebellos.media.stream
 		 */
 		override public function getPercentLoaded():Number
 		{
-			return sound.bytesLoaded / sound.bytesTotal;
+			return _sound.bytesLoaded / _sound.bytesTotal;
 		}
 		override public function getPercentPlayed():Number
 		{
-			if(sound && sound_channel && sound.length > 0)
-				return sound_channel.position / sound.length;
+			if(_sound && _soundChannel && _sound.length > 0)
+				return _soundChannel.position / _sound.length;
 			
 			return 0;
 		}
@@ -103,17 +103,30 @@ package losrebellos.media.stream
 		 */
 		public function get loadedDuration():Number
 		{
-			if(sound && sound.length > 0)
-				return sound.bytesTotal / (sound.bytesLoaded / sound.length);
+			if(_sound && _sound.length > 0)
+				return _sound.bytesTotal / (_sound.bytesLoaded / _sound.length);
 			
 			return 0;
 		}
 		public function get totalDuration():Number
 		{
-			if(sound && sound.length > 0)
-				return sound.length;
+			if(_sound && _sound.length > 0)
+				return _sound.length;
 			
 			return 0;
+		}
+
+		
+		/*
+		 * 
+		 * LOAD
+		 * 
+		 */
+		override public function load():void
+		{
+			super.load();
+			
+			_sound.load(_urlRequest);
 		}
 
 		
@@ -122,48 +135,42 @@ package losrebellos.media.stream
 		 * CONTROLS
 		 * 
 		 */
-		override public function load():void
+		override public function play(percent:Number = 0, loop:int = 0):void
 		{
-			super.load();
+			super.play(percent, loop);
 			
-			sound.load(url_request);
-		}
-		override public function play(_percent:Number = 0, _loop:int = 0):void
-		{
-			super.play(_percent, _loop);
-			
-			sound_channel = sound.play(_percent * sound.length, loop);
-			sound_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+			_soundChannel = _sound.play(_percent * _sound.length, _loop);
+			_soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 		}
 		override public function resume():void
 		{
 			super.resume();
 			
-			sound_channel = sound.play(percent * sound.length, loop);
-			sound_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+			_soundChannel = _sound.play(_percent * _sound.length, _loop);
+			_soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 		}
 		override public function pause():void
 		{
 			super.pause();
 			
-			sound_channel.stop();
+			_soundChannel.stop();
 		}
 		override public function stop():void
 		{
 			super.stop();
 			
-			sound_channel.stop();
-			sound.close();
+			_soundChannel.stop();
+			_sound.close();
 		}
 		override public function seek(_percent:Number):void
 		{
 			super.seek(_percent);
 			
-			sound_channel = sound.play(percent * sound.length, loop);
-			sound_channel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
+			_soundChannel = _sound.play(_percent * _sound.length, _loop);
+			_soundChannel.addEventListener(Event.SOUND_COMPLETE, soundCompleteHandler);
 			
 			if(state == StreamState.PAUSED || state == StreamState.STOPPED)
-				sound_channel.stop();
+				_soundChannel.stop();
 		}
 		
 		
@@ -178,7 +185,7 @@ package losrebellos.media.stream
 		}
 		protected function id3Handler(e:Event):void
 		{
-			id3 = sound.id3;
+			_id3 = _sound.id3;
 			
 			streamInitialized();
 		}
@@ -210,8 +217,8 @@ package losrebellos.media.stream
 		{
 			super.destroy();
 			
-			sound_channel.stop();
-			sound.close();
+			_soundChannel.stop();
+			_sound.close();
 		}
 	}
 }

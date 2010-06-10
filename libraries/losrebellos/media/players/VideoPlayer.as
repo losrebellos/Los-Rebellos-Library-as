@@ -25,15 +25,15 @@ package losrebellos.media.players
 		 */
 		
 		//video
-		protected var video:Video;
+		protected var _video:Video;
 		
 		//size
-		protected var video_width:int;
-		protected var video_height:int;
-		protected var ratio:Number;
+		protected var _videoWidth:int;
+		protected var _videoHeight:int;
+		protected var _ratio:Number;
 		public var autoSize:Boolean = false;
-		private var _fit_type:String = FitType.OUTSIDE;
-		private var _position_type:String = PositionType.MIDDLE;
+		private var _fitType:String = FitType.OUTSIDE;
+		private var _positionType:String = PositionType.MIDDLE;
 		private var _rect:Rectangle = null;
 		
 		
@@ -42,11 +42,11 @@ package losrebellos.media.players
 		 * CONSTRUCTOR
 		 * 
 		 */
-		public function VideoPlayer(_video_width:int = 320, _video_height:int = 240)
+		public function VideoPlayer(videoWidth:int = 320, videoHeight:int = 240)
 		{
-			video_width = _video_width;
-			video_height = _video_height;
-			ratio = video_width / video_height;
+			_videoWidth = videoWidth;
+			_videoHeight = videoHeight;
+			_ratio = _videoWidth / _videoHeight;
 			
 			super();
 		}
@@ -60,20 +60,28 @@ package losrebellos.media.players
 		override public function set width(value:Number):void
 		{
 			autoSize = false;
-			video.width = video_width = value;
+			_video.width = _videoWidth = value;
 		}
 		override public function get width():Number
 		{
-			return video_width;
+			return _videoWidth;
 		}
 		override public function set height(value:Number):void
 		{
 			autoSize = false;
-			video.height = video_height = value;
+			_video.height = _videoHeight = value;
 		}
 		override public function get height():Number
 		{
-			return video_height;
+			return _videoHeight;
+		}
+		public function set smoothing(value:Boolean):void
+		{
+			_video.smoothing = value;
+		}
+		public function get smoothing():Boolean
+		{
+			return _video.smoothing;
 		}
 		
 		
@@ -84,12 +92,11 @@ package losrebellos.media.players
 		 */
 		override protected function createContent():void
 		{
-			video = new Video(video_width, video_height);
-			video.smoothing = true;
+			_video = new Video(_videoWidth, _videoHeight);
 		}
 		override protected function addContent():void
 		{
-			this.addChild(video);
+			this.addChild(_video);
 		}
 
 		
@@ -101,11 +108,21 @@ package losrebellos.media.players
 		override public function load(stream:IStream):void
 		{
 			if(!(stream is VideoStream))
+			{
 				throw new IllegalOperationError(">>>>> VideoPlayer: stream not valid (VideoStream)");
+			}
 			
 			super.load(stream);
 			
-			video.attachNetStream((stream as VideoStream).stream);
+			_video.attachNetStream((stream as VideoStream).stream);
+			_video.smoothing = true;
+		}
+		override public function unLoad():void
+		{
+			super.unLoad();
+			
+			_video.attachNetStream(null);
+			_video.clear();
 		}
 		
 		
@@ -119,8 +136,8 @@ package losrebellos.media.players
 			//resizing from metadata values
 			if(autoSize)
 			{
-				video.width = video_width = (_stream as VideoStream).getMetadata().width;
-				video.height = video_height = (_stream as VideoStream).getMetadata().height;
+				_video.width = _videoWidth = (_stream as VideoStream).getMetadata().width;
+				_video.height = _videoHeight = (_stream as VideoStream).getMetadata().height;
 			}
 			
 			//if need to fit
@@ -130,8 +147,8 @@ package losrebellos.media.players
 			//normal resize
 			else
 			{
-				video.width = video_width;
-				video.height = video_height;
+				_video.width = _videoWidth;
+				_video.height = _videoHeight;
 			}
 		}
 		
@@ -143,31 +160,31 @@ package losrebellos.media.players
 		 */
 		public function set fitType(value:String):void
 		{
-			_fit_type = value;
+			_fitType = value;
 			
 			if(_rect)
 				resize(_rect);
 		}
 		public function get fitType():String
 		{
-			return _fit_type;
+			return _fitType;
 		}
 		public function set positionType(value:String):void
 		{
-			_position_type = value;
+			_positionType = value;
 			
 			if(_rect)
 				resize(_rect);
 		}
 		public function get positionType():String
 		{
-			return _position_type;
+			return _positionType;
 		}
 		override public function resize(rect:Rectangle):void
 		{
 			_rect = rect;
 			
-			Scale.setScaledRectangle(_fit_type, _position_type, new Rectangle(0, 0, video_width, video_height), _rect, video);
+			Scale.setScaledRectangle(_fitType, _positionType, new Rectangle(0, 0, _videoWidth, _videoHeight), _rect, _video);
 		}
 		
 		
@@ -180,7 +197,7 @@ package losrebellos.media.players
 		{
 			super.destroyStream();
 			
-			video.attachNetStream(null);
+			_video.attachNetStream(null);
 		}
 	}
 }

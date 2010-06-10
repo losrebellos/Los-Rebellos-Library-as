@@ -16,41 +16,44 @@ package losrebellos.media.stream
 		 * VARIABLES
 		 * 
 		 */
-		private var __id:String;
-		private var __src:String;
+		protected var _id:String;
+		protected var _src:String;
 		
-		public var min_buffering:Number;
-		private var _stream_ready_send:Boolean = false;
+		public var minBuffering:Number;
+		private var _streamReadySend:Boolean = false;
 		
-		protected var progress:Sprite = new Sprite();
-		protected var percent:Number = 0;
-		protected var __loop:int = 1;
-		protected var __loop_counter:int = 0;
-		protected var __state:String;
+		protected var _progress:Sprite = new Sprite();
+		protected var _percent:Number = 0;
+		protected var _loop:int = 1;
+		protected var _loopCounter:int = 0;
+		protected var _state:String;
 		
 		
 		/*
 		 * 
 		 * CONSTRUCTOR
 		 * 
-		 */		public function Stream(_id:String, _src:String, _loop:int = 1, _min_buffering:Number = -1)
+		 */		public function Stream(id:String, src:String, loop:int = 1, minBuffer:Number = -1)
 		{			super();
 			
-			id = _id;
-			src = _src;
-			loop = _loop;
-			loopCounter = 0;
-			min_buffering = _min_buffering;
+			_id = id;
+			_src = src;
 			
-			state = StreamState.NOT_STARTED;
+			if(_loop > -1)
+				_loop = loop;
+			_loopCounter = 0;
+			
+			minBuffering = minBuffer;
+			
+			_state = StreamState.NOT_STARTED;
 			
 			//if doesn't exist
-			if(!Library.instance.hasItem(id))
+			if(!Library.instance.hasItem(_id))
 			{
 				createStream();
 				
 				//add to the library
-				Library.instance.addItem(id, src);
+				Library.instance.addItem(_id, _src);
 			}
 			
 			//if exists
@@ -89,12 +92,12 @@ package losrebellos.media.stream
 		}
 		public function getPercentReady():Number
 		{
-			var percent_ready:Number = getPercentLoaded() / min_buffering;
+			var percentReady:Number = getPercentLoaded() / minBuffering;
 			
-			if(isNaN(percent_ready))
+			if(isNaN(percentReady))
 				return 0;
 			
-			return (percent_ready > 1) ? 1 : percent_ready;
+			return (percentReady > 1) ? 1 : percentReady;
 		}
 		
 		
@@ -105,19 +108,19 @@ package losrebellos.media.stream
 		 */
 		public function set id(value:String):void
 		{
-			__id = value;
+			_id = value;
 		}
 		public function get id():String
 		{
-			return __id;
+			return _id;
 		}
 		public function set src(value:String):void
 		{
-			__src = value;
+			_src = value;
 		}
 		public function get src():String
 		{
-			return __src;
+			return _src;
 		}
 		
 		
@@ -128,11 +131,11 @@ package losrebellos.media.stream
 		 */
 		public function set state(value:String):void
 		{
-			__state = value;
+			_state = value;
 		}
 		public function get state():String
 		{
-			return __state;
+			return _state;
 		}
 		
 		
@@ -143,20 +146,20 @@ package losrebellos.media.stream
 		 */
 		public function set loop(value:int):void
 		{
-			if(__loop > -1)
-				__loop = value;
+			if(_loop > -1)
+				_loop = value;
 		}
 		public function get loop():int
 		{
-			return __loop;
+			return _loop;
 		}
 		public function set loopCounter(value:int):void
 		{
-			__loop_counter = value;
+			_loopCounter = value;
 		}
 		public function get loopCounter():int
 		{
-			return __loop_counter;
+			return _loopCounter;
 		}
 		
 		
@@ -177,36 +180,47 @@ package losrebellos.media.stream
 		
 		/*
 		 * 
-		 * CONTROLS
+		 * LOAD
 		 * 
 		 */
 		public function load():void
 		{
-			state = StreamState.STOPPED;
+			_state = StreamState.STOPPED;
 		}
-		public function play(_percent:Number = 0, _loop:int = 0):void
+		public function unLoad():void
 		{
-			percent = _percent;
-			if(_loop != 0)
-				loop = _loop;
+			_state = StreamState.STOPPED;
+		}
+		
+		
+		/*
+		 * 
+		 * CONTROLS
+		 * 
+		 */
+		public function play(percent:Number = 0, loop:int = 0):void
+		{
+			_percent = percent;
+			if(loop != 0)
+				_loop = loop;
 			
-			state = StreamState.PLAYING;
+			_state = StreamState.PLAYING;
 		}
 		public function resume():void
 		{
-			state = StreamState.PLAYING;
+			_state = StreamState.PLAYING;
 		}
 		public function pause():void
 		{
-			state = StreamState.PAUSED;
+			_state = StreamState.PAUSED;
 		}
 		public function stop():void
 		{
-			state = StreamState.STOPPED;
+			_state = StreamState.STOPPED;
 		}
-		public function seek(_percent:Number):void
+		public function seek(percent:Number):void
 		{
-			percent = _percent;
+			_percent = percent;
 		}
 		
 		
@@ -225,9 +239,9 @@ package losrebellos.media.stream
 		}
 		protected function streamReady():void
 		{
-			if(getPercentLoaded() > min_buffering && !_stream_ready_send)
+			if(getPercentLoaded() > minBuffering && !_streamReadySend)
 			{
-				_stream_ready_send = true;
+				_streamReadySend = true;
 				this.dispatchEvent(new StreamEvent(StreamEvent.READY));
 			}
 		}
@@ -237,30 +251,30 @@ package losrebellos.media.stream
 		}
 		protected function streamStart():void
 		{
-			state = StreamState.PLAYING;
+			_state = StreamState.PLAYING;
 			this.dispatchEvent(new StreamEvent(StreamEvent.PLAY));
 		}
 		protected function streamComplete():void
 		{
 			this.dispatchEvent(new StreamEvent(StreamEvent.STREAM_COMPLETE));
 			
-			loopCounter++;
-			if(loop == -1 || (loop >= 1 && loopCounter < loop))
+			_loopCounter++;
+			if(_loop == -1 || (_loop >= 1 && _loopCounter < _loop))
 				seek(0);
 		}
 		protected function streamPaused():void
 		{
-			state = StreamState.PAUSED;
+			_state = StreamState.PAUSED;
 			this.dispatchEvent(new StreamEvent(StreamEvent.PAUSE));
 		}
 		protected function streamResume():void
 		{
-			state = StreamState.PLAYING;
+			_state = StreamState.PLAYING;
 			this.dispatchEvent(new StreamEvent(StreamEvent.PLAY));
 		}
 		protected function streamBufferEmpty():void
 		{
-			state = StreamState.BUFFERING;
+			_state = StreamState.BUFFERING;
 			this.dispatchEvent(new StreamEvent(StreamEvent.BUFFERING));
 		}
 		protected function streamBufferFull():void
@@ -285,21 +299,21 @@ package losrebellos.media.stream
 		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = true):void
 		{
 			if(type == Event.ENTER_FRAME)
-				progress.addEventListener(type, listener, useCapture, priority, useWeakReference);
+				_progress.addEventListener(type, listener, useCapture, priority, useWeakReference);
 			else
 				super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 		override public function hasEventListener(type:String):Boolean
 		{
 			if(type == Event.ENTER_FRAME)
-				return progress.hasEventListener(type);
+				return _progress.hasEventListener(type);
 			
 			return super.hasEventListener(type);
 		}
 		override public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
 		{
 			if(type == Event.ENTER_FRAME)
-				progress.removeEventListener(type, listener, useCapture);
+				_progress.removeEventListener(type, listener, useCapture);
 			else
 				super.removeEventListener(type, listener, useCapture);
 		}
@@ -312,8 +326,8 @@ package losrebellos.media.stream
 		 */
 		public function destroy():void
 		{
-			state = StreamState.STOPPED;
+			_state = StreamState.STOPPED;
 			
-			loopCounter = 0;
+			_loopCounter = 0;
 		}
 	}}
