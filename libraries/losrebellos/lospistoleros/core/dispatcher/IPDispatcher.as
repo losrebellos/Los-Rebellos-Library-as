@@ -19,23 +19,26 @@ package losrebellos.lospistoleros.core.dispatcher
 		function registerCommand(command:IPCommand):void;
 		
 		function retrieveModelByName(name:String):IPModel;
-		function retrieveModelsByType(type:String):Array;
-		function retrieveModelsByConstructor(constructor:Object):Array;
-		
+		function retrieveModelsByName(name:String):Array;
 		function retrieveViewByName(name:String):IPView;
-		function retrieveViewsByType(type:String):Array;
-		function retrieveViewsByConstructor(constructor:Object):Array;
-		
+		function retrieveViewsByName(name:String):Array;
 		function retrieveControllerByName(name:String):IPController;
-		function retrieveControllersByType(type:String):Array;
-		function retrieveControllersByConstructor(constructor:Object):Array;
-		
+		function retrieveControllersByName(name:String):Array;
 		function retrieveCommandByName(name:String):IPCommand;
-		function retrieveCommandsByType(type:String):Array;
+		function retrieveCommandsByName(name:String):Array;
+		
+		function retrieveByType(type:String):Array;
+		function getAllModels():Array;
+		function getAllViews():Array;
+		function getAllControllers():Array;
+		function getAllCommands():Array;
+		
+		function retrieveModelsByConstructor(constructor:Object):Array;
+		function retrieveViewsByConstructor(constructor:Object):Array;
+		function retrieveControllersByConstructor(constructor:Object):Array;
 		function retrieveCommandsByConstructor(constructor:Object):Array;
 		
 		function executeCommand(name:String):Boolean;
-		function executeCommandsByType(type:String):Boolean;
 		function executeCommandsByConstructor(constructor:Object):Boolean;
 	}
 }

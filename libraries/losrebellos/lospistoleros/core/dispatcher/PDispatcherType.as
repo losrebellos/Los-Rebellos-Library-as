@@ -12,11 +12,11 @@ package losrebellos.lospistoleros.core.dispatcher
 	 */
 	public class PDispatcherType 
 	{
-		public static const MODEL:String = "pDispatcherType/model";
-		public static const VIEW:String = "pDispatcherType/view";
-		public static const CONTROLLER:String = "pDispatcherType/controller";
-		public static const COMMAND:String = "pDispatcherType/command";
+		public static const MODEL:String = "PDispatcherType/model";
+		public static const VIEW:String = "PDispatcherType/view";
+		public static const CONTROLLER:String = "PDispatcherType/controller";
+		public static const COMMAND:String = "PDispatcherType/command";
 		
-		public static const ALL:Array = [[IPView, VIEW], [IPModel, MODEL], [IPController, CONTROLLER], [IPCommand, COMMAND]];
+		public static const ALL_TYPES:Array = [[IPView, VIEW], [IPModel, MODEL], [IPController, CONTROLLER], [IPCommand, COMMAND]];
 	}
 }

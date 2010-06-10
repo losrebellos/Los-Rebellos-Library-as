@@ -11,5 +11,8 @@ package losrebellos.lospistoleros.core.events
 	{
 		function set NAME(value:String):void;
 		function get NAME():String;
+		
+		function set TYPE(value:String):void;
+		function get TYPE():String;
 	}
 }

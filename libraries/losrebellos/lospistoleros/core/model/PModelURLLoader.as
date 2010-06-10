@@ -17,7 +17,6 @@ package losrebellos.lospistoleros.core.model
 		 * VARIABLES
 		 * 
 		 */
-		protected var _NAME:String = null;
 		protected var _view:IPView;
 		protected var _controller:IPController;
 
@@ -27,29 +26,14 @@ package losrebellos.lospistoleros.core.model
 		 * MVC
 		 * 
 		 */
-		public function PModelURLLoader(name:String = null)
+		public function PModelURLLoader(name:String = null, type:String = null)
 		{
 			super();
 			
 			_NAME = name;
+			_TYPE = type;
 			
 			PDispatcher.instance.registerModel(this);
-		}
-		public function setView(v:IPView):void
-		{
-			_view = v;
-		}
-		public function getView():IPView
-		{
-			return _view;
-		}
-		public function setController(c:IPController):void
-		{
-			_controller = c;
-		}
-		public function getController():IPController
-		{
-			return _controller;
 		}
 		
 		
@@ -58,6 +42,7 @@ package losrebellos.lospistoleros.core.model
 		 * NAME
 		 * 
 		 */
+		protected var _NAME:String = null;
 		public function set NAME(value:String):void
 		{
 			_NAME = value;
@@ -65,6 +50,22 @@ package losrebellos.lospistoleros.core.model
 		public function get NAME():String
 		{
 			return _NAME;
+		}
+		
+		
+		/*
+		 * 
+		 * TYPE
+		 * 
+		 */
+		protected var _TYPE:String = null;
+		public function set TYPE(value:String):void
+		{
+			_TYPE = value;
+		}
+		public function get TYPE():String
+		{
+			return _TYPE;
 		}
 	}
 }
