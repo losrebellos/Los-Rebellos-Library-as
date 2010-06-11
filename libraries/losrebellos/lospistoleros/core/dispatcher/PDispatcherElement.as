@@ -1,6 +1,5 @@
 package losrebellos.lospistoleros.core.dispatcher 
 {
-	import losrebellos.console.Console;
 	import losrebellos.lospistoleros.core.events.IPEventDispatcher;
 
 	/*
@@ -50,8 +49,6 @@ package losrebellos.lospistoleros.core.dispatcher
 					_constructor = value;
 				}
 			}
-			
-			Console.simpleOutput("PDispatcherElement:PDispatcherElement => " + _element + " " + _type + " " + _constructor + " " + _name);
 		}
 
 		
