@@ -3,7 +3,6 @@ package losrebellos.lospistoleros.core.dispatcher
 	import losrebellos.events.EventDispatcherPlus;
 	import losrebellos.lospistoleros.core.command.IPCommand;
 	import losrebellos.lospistoleros.core.controller.IPController;
-	import losrebellos.lospistoleros.core.events.IPEventDispatcher;
 	import losrebellos.lospistoleros.core.model.IPModel;
 	import losrebellos.lospistoleros.core.view.IPView;
 	import losrebellos.utils.DictionaryPlus;
@@ -70,7 +69,7 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * 
 		 */
 		//global
-		protected function register(dict:DictionaryPlus, element:IPEventDispatcher):void
+		protected function register(dict:DictionaryPlus, element:*):void
 		{
 			dict.add(element, new PDispatcherElement(element));
 		}
@@ -87,7 +86,7 @@ package losrebellos.lospistoleros.core.dispatcher
 		{
 			register(_controllers, controller);
 		}
-		public function registerCommand(command:IPCommand):void
+		public function registerCommand(command:Class):void
 		{
 			register(_commands, command);
 		}
@@ -99,7 +98,7 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * 
 		 */
 		//global
-		protected function retrieveByName(dict:DictionaryPlus, name:String):IPEventDispatcher
+		protected function retrieveByName(dict:DictionaryPlus, name:String):*
 		{
 			for each(var dispatcherElement:PDispatcherElement in dict)
 			{
@@ -150,9 +149,9 @@ package losrebellos.lospistoleros.core.dispatcher
 		{
 			return retrieveByNames(_controllers, name);
 		}
-		public function retrieveCommandByName(name:String):IPCommand
+		public function retrieveCommandByName(name:String):Class
 		{
-			return retrieveByName(_commands, name) as IPCommand;
+			return retrieveByName(_commands, name) as Class;
 		}
 		public function retrieveCommandsByName(name:String):Array
 		{
@@ -240,7 +239,9 @@ package losrebellos.lospistoleros.core.dispatcher
 		 */
 		public function executeCommand(name:String):Boolean
 		{
-			var command:IPCommand = retrieveCommandByName(name);
+			var Command:Class = retrieveCommandByName(name);
+			var command:IPCommand = new Command();
+			
 			return command.execute();
 		}
 		public function executeCommandsByConstructor(constructor:Object):Boolean
@@ -250,7 +251,8 @@ package losrebellos.lospistoleros.core.dispatcher
 			
 			for(var i:int = 0; i<tab.length; i++)
 			{
-				var command:IPCommand = tab[i];
+				var Command:Class = tab[i];
+				var command:IPCommand = new Command();
 				b = command.execute() ? true : false;
 			}
 			

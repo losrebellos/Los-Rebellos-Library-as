@@ -1,5 +1,6 @@
 package losrebellos.lospistoleros.core.dispatcher 
 {
+	import losrebellos.console.Console;
 	import losrebellos.lospistoleros.core.events.IPEventDispatcher;
 
 	/*
@@ -14,34 +15,43 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * CONSTRUCTOR
 		 * 
 		 */
-		public function PDispatcherElement(value:IPEventDispatcher)
+		public function PDispatcherElement(value:*)
 		{
 			super();
 			
 			//save the element
 			_element = value;
 			
-			//save the type
-			if(_element.TYPE)
+			//save the name
+			_name = _element["NAME"];
+			
+			//save the type & constructor
+			if(_element["TYPE"])
 			{
-				_type = _element.TYPE;
+				_type = _element["TYPE"];
 			}
 			else
 			{
-				for(var i:int = 0; i<PDispatcherType.ALL_TYPES.length; i++)
+				//not command type
+				if(_element is IPEventDispatcher)
 				{
-					if(_element is PDispatcherType.ALL_TYPES[i][0])
-					{
-						_type = PDispatcherType.ALL_TYPES[i][1];
-					}
+					_type = getTypeFromElement(_element);
+				
+					//save the class
+					_constructor = _element["constructor"];
+				}
+				
+				//command type
+				else
+				{
+					_type = PDispatcherType.COMMAND;
+					
+					//save the class
+					_constructor = value;
 				}
 			}
 			
-			//save the class
-			_constructor = _element["constructor"];
-			
-			//save the name
-			_name = _element.NAME;
+			Console.simpleOutput("PDispatcherElement:PDispatcherElement => " + _element + " " + _type + " " + _constructor + " " + _name);
 		}
 
 		
@@ -52,10 +62,6 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * 
 		 */
 		protected var _type:String = null;
-		protected function set type(value:String):void
-		{
-			_type = value;
-		}
 		public function get type():String
 		{
 			return _type;
@@ -69,10 +75,6 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * 
 		 */
 		protected var _constructor:Object = null;
-		protected function set constructor(value:Object):void
-		{
-			_constructor = value;
-		}
 		public function get constructor():Object
 		{
 			return _constructor;
@@ -86,10 +88,6 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * 
 		 */
 		protected var _name:String = null;
-		protected function set name(value:String):void
-		{
-			_name = value;
-		}
 		public function get name():String
 		{
 			return _name;
@@ -102,14 +100,29 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * element itself
 		 * 
 		 */
-		protected var _element:IPEventDispatcher = null;
-		protected function set element(value:IPEventDispatcher):void
-		{
-			_element = value;
-		}
-		public function get element():IPEventDispatcher
+		protected var _element:* = null;
+		public function get element():*
 		{
 			return _element;
+		}
+		
+		
+		/*
+		 * 
+		 * UTILS
+		 * 
+		 */
+		public static function getTypeFromElement(value:IPEventDispatcher):String
+		{
+			for(var i:int = 0; i<PDispatcherType.ALL_TYPES.length; i++)
+			{
+				if(value is PDispatcherType.ALL_TYPES[i][0])
+				{
+					return PDispatcherType.ALL_TYPES[i][1];
+				}
+			}
+			
+			return PDispatcherType.UNKNOWN;
 		}
 	}
 }

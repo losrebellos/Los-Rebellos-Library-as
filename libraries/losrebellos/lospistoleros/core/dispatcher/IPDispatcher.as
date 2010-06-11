@@ -1,7 +1,6 @@
 package losrebellos.lospistoleros.core.dispatcher 
 {
 	import losrebellos.events.IEventDispatcherPlus;
-	import losrebellos.lospistoleros.core.command.IPCommand;
 	import losrebellos.lospistoleros.core.controller.IPController;
 	import losrebellos.lospistoleros.core.model.IPModel;
 	import losrebellos.lospistoleros.core.view.IPView;
@@ -16,7 +15,7 @@ package losrebellos.lospistoleros.core.dispatcher
 		function registerModel(model:IPModel):void;
 		function registerView(view:IPView):void;
 		function registerController(controller:IPController):void;
-		function registerCommand(command:IPCommand):void;
+		function registerCommand(command:Class):void;
 		
 		function retrieveModelByName(name:String):IPModel;
 		function retrieveModelsByName(name:String):Array;
@@ -24,7 +23,7 @@ package losrebellos.lospistoleros.core.dispatcher
 		function retrieveViewsByName(name:String):Array;
 		function retrieveControllerByName(name:String):IPController;
 		function retrieveControllersByName(name:String):Array;
-		function retrieveCommandByName(name:String):IPCommand;
+		function retrieveCommandByName(name:String):Class;
 		function retrieveCommandsByName(name:String):Array;
 		
 		function retrieveByType(type:String):Array;

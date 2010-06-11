@@ -1,6 +1,5 @@
 package losrebellos.lospistoleros.core.dispatcher 
 {
-	import losrebellos.lospistoleros.core.events.IPEventDispatcher;
 
 	/*
 	 *
@@ -13,6 +12,6 @@ package losrebellos.lospistoleros.core.dispatcher
 		function get constructor():Object;
 		function get name():String;
 		
-		function get element():IPEventDispatcher;
+		function get element():*;
 	}
 }

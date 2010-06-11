@@ -16,6 +16,7 @@ package losrebellos.lospistoleros.core.dispatcher
 		public static const VIEW:String = "PDispatcherType/view";
 		public static const CONTROLLER:String = "PDispatcherType/controller";
 		public static const COMMAND:String = "PDispatcherType/command";
+		public static const UNKNOWN:String = "PDispatcherType/unknown";
 		
 		public static const ALL_TYPES:Array = [[IPView, VIEW], [IPModel, MODEL], [IPController, CONTROLLER], [IPCommand, COMMAND]];
 	}
