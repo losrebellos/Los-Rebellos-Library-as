@@ -5,6 +5,7 @@ package losrebellos.lospistoleros.core.dispatcher
 	import losrebellos.lospistoleros.core.controller.IPController;
 	import losrebellos.lospistoleros.core.model.IPModel;
 	import losrebellos.lospistoleros.core.view.IPView;
+	import losrebellos.utils.ArrayUtils;
 	import losrebellos.utils.DictionaryPlus;
 
 	import flash.errors.IllegalOperationError;
@@ -164,10 +165,10 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * RETRIEVE MODEL, VIEW, CONTROLLER & COMMAND BY TYPE
 		 * 
 		 */
-		public function retrieveByType(type:String):Array
+		//global
+		protected function retrieveByTypeFromDict(dict:DictionaryPlus, type:String):Array
 		{
 			var tab:Array = [];
-			var dict:DictionaryPlus = getDictionaryFromType(type);
 			
 			for each(var dispatcherElement:PDispatcherElement in dict)
 			{
@@ -175,6 +176,26 @@ package losrebellos.lospistoleros.core.dispatcher
 				{
 					tab.push(dispatcherElement.element);
 				}
+			}
+			
+			return tab;
+		}
+		//
+		public function retrieveByType(type:String):Array
+		{
+			var tab:Array = [];
+			var dict:DictionaryPlus = getDictionaryFromType(type);
+			
+			if(dict)
+			{
+				tab = retrieveByTypeFromDict(dict, type);
+			}
+			else
+			{
+				tab = ArrayUtils.merge(tab, retrieveByTypeFromDict(_models, type));
+				tab = ArrayUtils.merge(tab, retrieveByTypeFromDict(_views, type));
+				tab = ArrayUtils.merge(tab, retrieveByTypeFromDict(_controllers, type));
+				tab = ArrayUtils.merge(tab, retrieveByTypeFromDict(_commands, type));
 			}
 			
 			return tab;
