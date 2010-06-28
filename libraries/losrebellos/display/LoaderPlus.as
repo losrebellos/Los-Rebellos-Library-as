@@ -17,6 +17,14 @@ package losrebellos.display
 	public class LoaderPlus extends Loader implements IloaderPlus
 	{
 		/*
+		 *
+		 * VARIABLES
+		 *
+		 */
+		protected var _rect:Rectangle;
+		
+		
+		/*
 		 * 
 		 * CONSTRUCTOR
 		 * 
@@ -185,7 +193,18 @@ package losrebellos.display
 		 */
 		public function resize(rect:Rectangle):void
 		{
+			_rect = rect;
+		}
+		public function forceResize():Boolean
+		{
+			if(_rect)
+			{
+				resize(_rect);
+				
+				return true;
+			}
 			
+			return false;
 		}
 	}
 }
