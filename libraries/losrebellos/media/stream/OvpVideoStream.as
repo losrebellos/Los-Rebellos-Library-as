@@ -4,10 +4,10 @@ package losrebellos.media.stream
 	import losrebellos.events.NetStreamClientEvent;
 	import losrebellos.media.Library;
 	import losrebellos.net.NetStreamClient;
+	import losrebellos.net.OvpNetStreamPlus;
 
 	import org.openvideoplayer.events.OvpEvent;
 	import org.openvideoplayer.net.OvpConnection;
-	import org.openvideoplayer.net.OvpNetStream;
 
 	import flash.events.AsyncErrorEvent;
 	import flash.events.NetStatusEvent;
@@ -57,7 +57,7 @@ package losrebellos.media.stream
 			_client = new NetStreamClient;
 			_client.addEventListener(NetStreamClientEvent.META_DATA_LOADED, metaDataHandler);
 			
-			stream = new OvpNetStream(_connection);
+			stream = new OvpNetStreamPlus(_connection);
 			stream.addEventListener(NetStatusEvent.NET_STATUS, netStatusHandler);
 			stream.addEventListener(AsyncErrorEvent.ASYNC_ERROR, asyncErrorHandler);
 			stream.addEventListener(OvpEvent.PROGRESS, onNetStreamProgress);
@@ -68,7 +68,7 @@ package losrebellos.media.stream
 		{
 			//need to be tested!!!
 			_client = Library.instance.getItem(id + "/netStreamClient") as NetStreamClient;
-			stream = Library.instance.getItem(id) as OvpNetStream;
+			stream = Library.instance.getItem(id) as OvpNetStreamPlus;
 		}
 		
 		
@@ -83,7 +83,7 @@ package losrebellos.media.stream
 		}
 		private function onNetStreamProgress(event:OvpEvent):void
 		{
-//			var ovpNetStream:OvpNetStream = (event.target as ovpNetStream);
+//			var ovpNetStream:OvpNetStreamPlus = (event.target as OvpNetStreamPlus);
 //			
 //			if(ovpNetStream.bytesLoaded >= ovpNetStream.bytesTotal)
 //			{
