@@ -1,0 +1,1 @@
+package losrebellos.text {	/*	 *	 * @author los rebellos	 *	 */	public class TextUtils 	{		/*		 * 		 * ALPHABET		 * 		 */		public static const ALPHABET:String = "abcdefghijklmnopqrstuvwxyz";		public static const ALPHABET_CAPITALS:String = ALPHABET.toUpperCase();						/*		 * 		 * INTEGER		 * 		 */		public static const INTEGERS:String = "0123456789";	}}
