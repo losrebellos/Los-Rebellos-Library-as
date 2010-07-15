@@ -20,7 +20,7 @@ package losrebellos.media.players
 		function load(_stream:IStream):void;
 		function unLoad():void;
 		
-		function play(percent:Number = 0, loop:int = 0):void;
+		function play(percent:Number = 0, loop:int = 1):void;
 		function resume():void;
 		function pause():void;
 		function stop():void;

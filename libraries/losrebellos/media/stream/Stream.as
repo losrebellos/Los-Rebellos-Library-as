@@ -198,7 +198,7 @@ package losrebellos.media.stream
 		 * CONTROLS
 		 * 
 		 */
-		public function play(percent:Number = 0, loop:int = 0):void
+		public function play(percent:Number = 0, loop:int = 1):void
 		{
 			_percent = percent;
 			if(loop != 0)

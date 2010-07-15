@@ -34,7 +34,6 @@ package losrebellos.media.players
 		public var autoSize:Boolean = false;
 		private var _fitType:String = FitType.OUTSIDE;
 		private var _positionType:String = PositionType.MIDDLE;
-		private var _rect:Rectangle = null;
 		
 		
 		/*

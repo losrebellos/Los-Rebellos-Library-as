@@ -135,7 +135,7 @@ package losrebellos.media.stream
 		 * CONTROLS
 		 * 
 		 */
-		override public function play(percent:Number = 0, loop:int = 0):void
+		override public function play(percent:Number = 0, loop:int = 1):void
 		{
 			super.play(percent, loop);
 			
