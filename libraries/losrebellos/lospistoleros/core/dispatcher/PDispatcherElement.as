@@ -1,6 +1,6 @@
 package losrebellos.lospistoleros.core.dispatcher 
 {
-	import losrebellos.lospistoleros.core.events.IPEventDispatcher;
+	import losrebellos.lospistoleros.core.accessor.IPAccessor;
 
 	/*
 	 *
@@ -32,7 +32,7 @@ package losrebellos.lospistoleros.core.dispatcher
 			else
 			{
 				//not command type
-				if(_element is IPEventDispatcher)
+				if(_element is IPAccessor)
 				{
 					_type = getTypeFromElement(_element);
 				
@@ -109,7 +109,7 @@ package losrebellos.lospistoleros.core.dispatcher
 		 * UTILS
 		 * 
 		 */
-		public static function getTypeFromElement(value:IPEventDispatcher):String
+		public static function getTypeFromElement(value:IPAccessor):String
 		{
 			for(var i:int = 0; i<PDispatcherType.ALL_TYPES.length; i++)
 			{

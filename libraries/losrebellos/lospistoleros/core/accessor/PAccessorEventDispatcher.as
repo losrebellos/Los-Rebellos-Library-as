@@ -11,9 +11,14 @@ package losrebellos.lospistoleros.core.accessor
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public class PAccessor extends EventDispatcherPlus implements IPAccessor
+	public class PAccessorEventDispatcher extends EventDispatcherPlus implements IPAccessorEventDispatcher
 	{
-		public function PAccessor(name:String = null, type:String = null)
+		/*
+		 *
+		 * CONSTRUCTOR
+		 *
+		 */
+		public function PAccessorEventDispatcher(name:String = null, type:String = null)
 		{
 			super();
 			

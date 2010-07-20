@@ -1,1 +1,1 @@
-package losrebellos.lospistoleros.core.model {	import losrebellos.lospistoleros.core.events.IPEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IPModel extends IPEventDispatcher	{			}}
+package losrebellos.lospistoleros.core.model {	import losrebellos.lospistoleros.core.accessor.IPAccessorEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IPModel extends IPAccessorEventDispatcher	{			}}

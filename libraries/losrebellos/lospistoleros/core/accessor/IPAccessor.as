@@ -1,14 +1,17 @@
 package losrebellos.lospistoleros.core.accessor 
 {
-	import losrebellos.lospistoleros.core.events.IPEventDispatcher;
 
 	/*
 	 *
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public interface IPAccessor extends IPEventDispatcher
+	public interface IPAccessor 
 	{
+		function set NAME(value:String):void;
+		function get NAME():String;
 		
+		function set TYPE(value:String):void;
+		function get TYPE():String;
 	}
 }

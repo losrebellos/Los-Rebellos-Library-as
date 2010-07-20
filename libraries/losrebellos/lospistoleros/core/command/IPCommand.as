@@ -1,1 +1,1 @@
-package losrebellos.lospistoleros.core.command {	import losrebellos.lospistoleros.core.accessor.IPAccessor;	/*	 *	 * @author los rebellos	 *	 */	public interface IPCommand extends IPAccessor	{		function execute():Boolean;	}}
+package losrebellos.lospistoleros.core.command {	import losrebellos.lospistoleros.core.accessor.IPAccessorEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IPCommand extends IPAccessorEventDispatcher	{		function execute():Boolean;	}}

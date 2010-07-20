@@ -1,1 +1,1 @@
-package losrebellos.lospistoleros.core.controller {	import losrebellos.lospistoleros.core.accessor.IPAccessor;	/*	 *	 * @author los rebellos	 *	 */	public interface IPController extends IPAccessor	{		function initialize():void;		function finalize():void;	}}
+package losrebellos.lospistoleros.core.controller {	import losrebellos.lospistoleros.core.accessor.IPAccessorEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IPController extends IPAccessorEventDispatcher	{		function initialize():void;		function finalize():void;	}}
