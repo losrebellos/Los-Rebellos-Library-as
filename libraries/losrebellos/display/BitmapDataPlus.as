@@ -3,6 +3,7 @@ package losrebellos.display
 	import losrebellos.utils.DictionaryPlus;
 
 	import flash.display.BitmapData;
+	import flash.geom.Matrix;
 
 	/*
 	 *
@@ -74,6 +75,73 @@ package losrebellos.display
 			}
 		
 			return a.sort(byCount, Array.DESCENDING);
+		}
+		
+		
+		/*
+		 * 
+		 * ROTATIONS
+		 * 
+		 */
+		public function rotate90CCW():void
+		{
+			var matrix:Matrix = new Matrix();
+			matrix.rotate(-1 * Math.PI / 2);
+			matrix.ty = this.width;
+			
+			this = cloneWithMatrix(this.height, this.width, matrix);
+		}
+		public function rotate90CW():void
+		{
+			var matrix:Matrix = new Matrix();
+			matrix.rotate(Math.PI / 2);
+			matrix.ty = this.height;
+			
+			this = cloneWithMatrix(this.height, this.width, matrix);
+		}
+		public function rotate180():void
+		{
+			var matrix:Matrix = new Matrix();
+			matrix.rotate(Math.PI);
+			
+			this = cloneWithMatrix(this.width, this.height, matrix);
+		}
+		
+		
+		/*
+		 * 
+		 * UTILS
+		 * 
+		 */
+		public function cloneWithMatrix(width:int, height:int, matrix:Matrix):BitmapDataPlus
+		{
+			var bmpd:BitmapDataPlus = new BitmapDataPlus(width, height);
+			bmpd.draw(this, matrix);
+			
+			return bmpd;
+		}
+		
+		
+		/*
+		 * 
+		 * FLIPPING
+		 * 
+		 */
+		public function flipHorizontal():void
+		{
+			var matrix:Matrix = new Matrix();
+			matrix.scale(1, -1);
+			matrix.translate(0, this.height);
+			
+			this.draw(this, matrix);
+		}
+		public function flipVertical():void
+		{
+			var matrix:Matrix = new Matrix();
+			matrix.scale(-1, 1);
+			matrix.translate(this.width, 0);
+			
+			this.draw(this, matrix);
 		}
 	}
 }

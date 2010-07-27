@@ -16,11 +16,16 @@ package losrebellos.text
 		 * CONSTRUCTOR
 		 *
 		 */
-		public function StyleSheetPlus(CSSText:String)
+		public function StyleSheetPlus(CSSText:String, id:String = null)
 		{
 			super();
 			
 			parseCSS(CSSText);
+			
+			if(id)
+			{
+				register(id);
+			}
 		}
 		
 		
