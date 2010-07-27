@@ -31,17 +31,30 @@ package losrebellos.text
 		 * 
 		 */
 		private static const _styleSheets:DictionaryPlus = new DictionaryPlus(true);
+		private static const _textFormats:DictionaryPlus = new DictionaryPlus(true);
 		public function register(id:String):void
 		{
 			_styleSheets[id] = this;
+			
+			for(var i:int = 0; i<this.styleNames.length; i++)
+			{
+				var tfp:TextFormatPlus = new TextFormatPlus;
+				tfp.setFromCSS(this.getStyle(this.styleNames[i]));
+				
+				var name:String = this.styleNames[i];
+				if(name.substr(0, 1) == "." || name.substr(0, 1) == "#")
+					name = name.substr(1, name.length - 1);
+				
+				_textFormats[name] = tfp;
+			}
 		}
 		public static function getStyleSheet(id:String):StyleSheet
 		{
 			return _styleSheets[id] as StyleSheet;
 		}
-		public static function getStyleByName(id:String, name:String):StyleSheet
+		public static function getTextFormat(id:String):TextFormatPlus
 		{
-			return getStyleSheet(id).getStyle(name) as StyleSheet;
+			return _textFormats[id] as TextFormatPlus;
 		}
 	}
 }
