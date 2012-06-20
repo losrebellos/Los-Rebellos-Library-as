@@ -1,0 +1,1 @@
+package com.losrebellos.text {	import flash.text.ITextFormat;	/*	 *	 * @author los rebellos	 *	 */	public interface ITextFormatPlus extends ITextFormat	{		function setFromCSS(object:Object):void;				function toString():String;	}}

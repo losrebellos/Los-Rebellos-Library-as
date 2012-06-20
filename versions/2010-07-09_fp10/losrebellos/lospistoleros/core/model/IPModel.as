@@ -1,1 +1,0 @@
-package losrebellos.lospistoleros.core.model {	import losrebellos.lospistoleros.core.events.IPEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IPModel extends IPEventDispatcher	{			}}

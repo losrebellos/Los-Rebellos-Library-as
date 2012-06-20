@@ -1,0 +1,3 @@
+package com.losrebellos.old.external.explorer {	import org.bytearray.explorer.SWFExplorer;	import flash.utils.ByteArray;	/*	 *	 * @author los rebellos	 *	 */	public final class SWF 	{		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// just a simple version of SWFExplorer Class from Thibault Imbert		// because I'm not using its loading options
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////		public static function parse(ba:ByteArray):Array		{			return (new SWFExplorer()).parse(ba);		}	}}

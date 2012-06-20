@@ -1,1 +1,0 @@
-package losrebellos.data {	import flash.events.IEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IAbstractXMLData extends IEventDispatcher	{		function setXML(xml:XML):void;		function getXML():XML;				function empty():void;	}}

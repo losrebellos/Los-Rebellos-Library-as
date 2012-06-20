@@ -1,0 +1,1 @@
+Personal actionscript 3 library:- has some dependencies- some stuff are not tested- in betaDue to some recent refactoring, a new (more simple) framework will be added, on top Robotlegs.

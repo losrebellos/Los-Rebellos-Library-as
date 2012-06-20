@@ -1,0 +1,1 @@
+package com.losrebellos.old.render {	/*	 *	 * @author los rebellos	 *	 */	public interface IRender 	{		function set renderType(value:String):void;				function get renderType():String;						function updateRendering():void;				function refreshPosition():void;				function refreshRendering():void;	}}

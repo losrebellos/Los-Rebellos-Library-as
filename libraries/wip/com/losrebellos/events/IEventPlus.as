@@ -1,0 +1,1 @@
+package com.losrebellos.events {	/*	 *	 * @author los rebellos	 *	 */	public interface IEventPlus 	{		function stopAllPropagations():void;	}}

@@ -1,0 +1,1 @@
+package com.losrebellos.interfaces {	/*	 *	 * @author los rebellos - ben@benoitvinay.com	 *	 */	public interface IInteractive	{		function enable():void;				function disable():void;	}}

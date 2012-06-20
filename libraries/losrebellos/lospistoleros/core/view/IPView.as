@@ -1,1 +1,0 @@
-package losrebellos.lospistoleros.core.view {	import losrebellos.interfaces.IInteraction;	import losrebellos.interfaces.IMotion;	import losrebellos.lospistoleros.core.accessor.IPAccessorEventDispatcher;	/*	 *	 * @author los rebellos	 *	 */	public interface IPView extends IMotion, IInteraction, IPAccessorEventDispatcher	{		function update():void;	}}
