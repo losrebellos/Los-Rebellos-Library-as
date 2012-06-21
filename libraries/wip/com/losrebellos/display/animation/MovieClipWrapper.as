@@ -1,6 +1,5 @@
 package com.losrebellos.display.animation 
 {
-	import com.losrebellos.constants.states.AnimationState;
 	import com.losrebellos.display.base.SpritePlus;
 	import com.losrebellos.events.AnimationEvent;
 	import flash.display.FrameLabel;
@@ -125,7 +124,7 @@ package com.losrebellos.display.animation
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// STATE
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		private var _state:String = AnimationState.STOPPED;
+		private var _state:String = MovieClipState.STOPPED;
 		public function get state():String
 		{
 			return _state;
@@ -177,12 +176,12 @@ package com.losrebellos.display.animation
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		public function goto(frame : Object, scene : String = null):void
 		{
-			if(_state == AnimationState.PLAYING)
+			if(_state == MovieClipState.PLAYING)
 			{
 				this.cleanStop();
 				this.startPlayHeadHandler(_movieClip.currentFrame, frame, scene, _numLoop);
 			}
-			else if(_state == AnimationState.STOPPED)
+			else if(_state == MovieClipState.STOPPED)
 			{
 				this.gotoAndStop(frame, scene);
 			}
@@ -270,7 +269,7 @@ package com.losrebellos.display.animation
 		}
 		protected function playHeadHandler(e:Event):void
 		{
-			_state = AnimationState.PLAYING;
+			_state = MovieClipState.PLAYING;
 			
 			//events
 			if(_movieClip.currentFrame == 1)
@@ -319,7 +318,7 @@ package com.losrebellos.display.animation
 		{
 			cleanGotoAndStop(frame, scene);
 			
-			_state = AnimationState.STOPPED;
+			_state = MovieClipState.STOPPED;
 			
 			this.dispatchEvent(new AnimationEvent(AnimationEvent.STOPPED));
 		}
@@ -333,7 +332,7 @@ package com.losrebellos.display.animation
 		{
 			this.removeEventListener(Event.ENTER_FRAME, playHeadHandler);
 			
-			_state = AnimationState.STOPPED;
+			_state = MovieClipState.STOPPED;
 			
 			_movieClip.gotoAndStop(frame, scene);
 		}
@@ -341,7 +340,7 @@ package com.losrebellos.display.animation
 		{
 			this.removeEventListener(Event.ENTER_FRAME, playHeadHandler);
 			
-			_state = AnimationState.STOPPED;
+			_state = MovieClipState.STOPPED;
 			
 			_movieClip.stop();
 		}

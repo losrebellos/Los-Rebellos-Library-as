@@ -3,19 +3,19 @@ package com.losrebellos.old.external.bulkloader.loadingtypes
 	import br.com.stimuli.loading.BulkLoader;
 	import br.com.stimuli.loading.BulkProgressEvent;
 	import br.com.stimuli.loading.loadingtypes.LoadingItem;
-
-	import com.losrebellos.constants.states.NetStatusState;
-
-	import org.openvideoplayer.events.OvpEvent;
-	import org.openvideoplayer.net.OvpConnection;
-	import org.openvideoplayer.net.OvpNetStream;
-
+	import com.losrebellos.net.NetStreamStatus;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.NetStatusEvent;
 	import flash.events.ProgressEvent;
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
+	import org.openvideoplayer.events.OvpEvent;
+	import org.openvideoplayer.net.OvpConnection;
+	import org.openvideoplayer.net.OvpNetStream;
+
+
+
 
 
 
@@ -178,11 +178,11 @@ package com.losrebellos.old.external.bulkloader.loadingtypes
 			}
 			switch(evt.info["code"])
 			{
-				case NetStatusState.PLAY_STREAM_NOT_FOUND:
+				case NetStreamStatus.PLAY_STREAM_NOT_FOUND:
 					onErrorHandler(_createErrorEvent(new Error("[OvpRTMPItem] NetStream not found at " + this.url.url)));
 					break;
 				
-				case NetStatusState.PLAY_START:
+				case NetStreamStatus.PLAY_START:
 					if(!_started)
 					{
 						_started = true;
@@ -192,7 +192,7 @@ package com.losrebellos.old.external.bulkloader.loadingtypes
 					}
 					break;
 				
-				case NetStatusState.PLAY_STOP:
+				case NetStreamStatus.PLAY_STOP:
 //					stream.removeEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 					break;
 			}

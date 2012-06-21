@@ -1,7 +1,7 @@
 package com.losrebellos.project.media.player.stream 
 {
-	import com.losrebellos.constants.states.NetStatusState;
 	import com.losrebellos.events.EventDispatcherPlus;
+	import com.losrebellos.net.NetStreamStatus;
 	import com.losrebellos.project.media.player.events.StreamEvent;
 	import com.losrebellos.project.media.player.state.StreamState;
 	import flash.display.Shape;
@@ -205,7 +205,7 @@ package com.losrebellos.project.media.player.stream
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		protected function streamNotFound():void
 		{
-			this.dispatchEvent(new StreamEvent(StreamEvent.ERROR, NetStatusState.PLAY_STREAM_NOT_FOUND));
+			this.dispatchEvent(new StreamEvent(StreamEvent.ERROR, NetStreamStatus.PLAY_STREAM_NOT_FOUND));
 		}
 		protected function streamProgress():void
 		{

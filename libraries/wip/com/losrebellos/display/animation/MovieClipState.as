@@ -1,4 +1,4 @@
-package com.losrebellos.constants.states 
+package com.losrebellos.display.animation 
 {
 
 	/*
@@ -6,7 +6,7 @@ package com.losrebellos.constants.states
 	 * @author los rebellos - ben@benoitvinay.com
 	 *
 	 */
-	public final class AnimationState 
+	public final class MovieClipState 
 	{
 		public static const PLAYING:String	= "AnimationState/playing";
 		public static const STOPPED:String	= "AnimationState/stopped";

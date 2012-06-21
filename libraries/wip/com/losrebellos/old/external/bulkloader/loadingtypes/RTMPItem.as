@@ -3,8 +3,8 @@ package com.losrebellos.old.external.bulkloader.loadingtypes
 	import br.com.stimuli.loading.BulkLoader;
 	import br.com.stimuli.loading.BulkProgressEvent;
 	import br.com.stimuli.loading.loadingtypes.LoadingItem;
-	import com.losrebellos.constants.states.NetStatusState;
 	import com.losrebellos.events.NetStreamClientEvent;
+	import com.losrebellos.net.NetStreamStatus;
 	import com.losrebellos.net.NetStreamClient;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -180,11 +180,11 @@ package com.losrebellos.old.external.bulkloader.loadingtypes
 			}
 			switch(evt.info["code"])
 			{
-				case NetStatusState.PLAY_STREAM_NOT_FOUND:
+				case NetStreamStatus.PLAY_STREAM_NOT_FOUND:
 					onErrorHandler(_createErrorEvent(new Error("[VideoItem] NetStream not found at " + this.url.url)));
 					break;
 				
-				case NetStatusState.PLAY_START:
+				case NetStreamStatus.PLAY_START:
 					if(!_started)
 					{
 						_started = true;
@@ -194,7 +194,7 @@ package com.losrebellos.old.external.bulkloader.loadingtypes
 					}
 					break;
 				
-				case NetStatusState.PLAY_STOP:
+				case NetStreamStatus.PLAY_STOP:
 //					stream.removeEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 					break;
 			}
