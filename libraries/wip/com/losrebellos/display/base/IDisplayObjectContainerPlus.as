@@ -1,6 +1,6 @@
 package com.losrebellos.display.base
 {
-	import com.losrebellos.interfaces.IContainer;
+	import com.losrebellos.display.container.IContainer;
 	/**
 	 * @author Los Rebellos (Benoit Vinay)
 	 */

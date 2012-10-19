@@ -1,15 +1,15 @@
-package com.losrebellos.project.application
+package com.losrebellos.project.framework.base.application
 {
-	import com.losrebellos.display.base.SpritePlus;
+	import com.losrebellos.project.framework.base.application.preloader.IApplicationPreloader;
+	import com.losrebellos.project.framework.base.mvcs.ViewContainer;
 
 	import flash.events.Event;
-
 
 
 	/**
 	 * @author Los Rebellos (Benoit Vinay)
 	 */
-	public class AbstractApplication extends SpritePlus implements IApplication
+	public class AbstractApplication extends ViewContainer implements IApplication
 	{
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// CONSTRUCTOR
@@ -17,6 +17,15 @@ package com.losrebellos.project.application
 		public function AbstractApplication()
 		{
 			super();
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// SECURITY
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		protected function setupSecurity():void
+		{
+			
 		}
 		
 		
@@ -30,13 +39,9 @@ package com.losrebellos.project.application
 		
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// CONTENT
+		// PRELOADER
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		protected function createStageContent():void
-		{
-			
-		}
-		protected function addStageContent():void
+		public function set preloader(value:IApplicationPreloader):void
 		{
 			
 		}

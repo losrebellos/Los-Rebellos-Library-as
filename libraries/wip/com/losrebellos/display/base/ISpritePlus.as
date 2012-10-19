@@ -1,6 +1,6 @@
 package com.losrebellos.display.base
 {
-	import com.losrebellos.interfaces.IGraphics;
+	import com.losrebellos.display.IGraphics;
 	import flash.display.ISprite;
 
 

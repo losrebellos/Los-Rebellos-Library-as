@@ -1,6 +1,5 @@
-package com.losrebellos.display.animation
+package com.losrebellos.display.base
 {
-	import com.losrebellos.display.base.ISpritePlus;
 	import flash.display.FrameLabel;
 	import flash.display.IMovieClip;
 

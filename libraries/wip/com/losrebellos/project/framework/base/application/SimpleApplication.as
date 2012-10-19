@@ -1,24 +1,24 @@
-package com.losrebellos.project.application
+package com.losrebellos.project.framework.base.application
 {
+	import com.losrebellos.project.framework.base.application.preloader.IApplicationPreloader;
+	import com.losrebellos.project.framework.base.mvcs.IViewContainer;
+
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
-	import flash.geom.Rectangle;
+
 
 	/**
-	 * @author Los Rebellos (Benoit Vinay)
+	 * @author Benoit vinay - ben@benoitvinay.com
 	 */
-	public class BaseApplication extends AbstractApplication
+	public class SimpleApplication extends AbstractApplication implements IViewContainer, IApplication
 	{
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// CONSTRUCTOR
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		public function BaseApplication()
+		public function SimpleApplication()
 		{
 			super();
-			
-			this.addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-			this.addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 		}
 		
 		
@@ -38,13 +38,13 @@ package com.losrebellos.project.application
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// START APPLICATION
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		protected function addedToStageHandler(e:Event):void
+		override protected function onAddedToStage(e:Event):void
 		{
-			this.removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
+			setupSecurity();
 			createStageOptions();
-			createStageContent();
-			addStageContent();
+			createContent();
 			onResize();
 			enable();
 		}
@@ -53,12 +53,23 @@ package com.losrebellos.project.application
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// STOP APPLICATION
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		protected function removedFromStageHandler(e:Event):void
+		override protected function onRemovedFromStage(e:Event):void
 		{
-			this.removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			removeEventListener(Event.REMOVED_FROM_STAGE, onRemovedFromStage);
 			
 			disable();
+			disposeContent();
 			dispose(e);
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// PRELOADER
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		protected var _preloader:IApplicationPreloader;
+		override public function set preloader(value:IApplicationPreloader):void
+		{
+			_preloader = value;
 		}
 		
 		
@@ -67,11 +78,11 @@ package com.losrebellos.project.application
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		override protected function onResize(e:Event = null):void
 		{
-			resize(new Rectangle(0, 0, stage.stageWidth, stage.stageHeight));
+			resize();
 		}
 		override protected function onRender(e:Event = null):void
 		{
-			redraw();
+			render();
 		}
 	}
 }

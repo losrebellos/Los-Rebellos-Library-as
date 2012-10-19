@@ -8,7 +8,7 @@ package com.losrebellos.project.framework.robotlegs.plugin.statemachine.view
 	/**
 	 * @author Los Rebellos (Benoit Vinay)
 	 */
-	public class BaseStateMachineMediator extends Mediator
+	public class BaseStateMachineController extends Mediator
 	{
 		[Inject]
 		public var fsmInjector:IFSMInjector;
@@ -20,18 +20,20 @@ package com.losrebellos.project.framework.robotlegs.plugin.statemachine.view
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// CONSTRUCTOR
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		public function BaseStateMachineMediator()
+		public function BaseStateMachineController()
 		{
 			super();
 		}
-		
-		override public function preRegister() : void {
+		override public function preRegister():void
+		{
 			super.preRegister();
+			
 			addContextListener(StateEvent.CHANGED, onStateChanged);
 		}
-		
-		override public function preRemove() : void {
+		override public function preRemove():void
+		{
 			super.preRemove();
+			
 			removeContextListener(StateEvent.CHANGED, onStateChanged);
 			fsmInjector = null;
 			fsm = null;

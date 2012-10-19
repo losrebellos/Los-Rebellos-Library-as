@@ -1,11 +1,12 @@
 package com.losrebellos.display.loader 
 {
+	import com.losrebellos.display.invalidate.IInvalidate;
 	import com.losrebellos.display.invalidate.StageManager;
+	import com.losrebellos.interfaces.IDisposable;
 
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.events.Event;
-	import flash.geom.Rectangle;
 
 
 
@@ -89,7 +90,21 @@ package com.losrebellos.display.loader
 			
 			return -1;
 		}
-		public function getAllChildren():Vector.<DisplayObject>
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// EVENTS
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = true):void
+		{
+			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
+		}
+		
+		
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// CHILDREN
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		public function get children():Vector.<DisplayObject>
 		{
 			var children:Vector.<DisplayObject> = new Vector.<DisplayObject>();
 			var childrenLength:int = this.numChildren;
@@ -102,21 +117,18 @@ package com.losrebellos.display.loader
 			children.fixed = true;
 			return children;
 		}
-		public function removeAllChildren():void
+		public function applyChildren(Clazz:Class, method:String, ...args):void
 		{
-			while(this.numChildren)
+			var l:int = this.numChildren;
+			var child:DisplayObject;
+			while(0 < l--)
 			{
-				this.removeChildAt(0);
+				child = getChildAt(l);
+				if(child is Clazz)
+				{
+					(child[method] as Function).apply(null, args);
+				}
 			}
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// EVENTS
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = true):void
-		{
-			super.addEventListener(type, listener, useCapture, priority, useWeakReference);
 		}
 		
 		
@@ -137,9 +149,10 @@ package com.losrebellos.display.loader
 		public function dispose(e:Event = null):void
 		{
 			remove();
-			removeAllChildren();
-			
-			_rect = null;
+		}
+		public function disposeChildren(e:Event = null):void
+		{
+			applyChildren(IDisposable, "dispose", e);
 		}
 		
 		
@@ -150,18 +163,21 @@ package com.losrebellos.display.loader
 		{
 			StageManager.addItem(this);
 		}
-		// save the resize data
-		protected var _rect:Rectangle;
-		public function resize(rect:Rectangle):void
+		public function resize():void
 		{
-			_rect = rect;
 			
-			invalidate();
 		}
-		// redraw automatically on stage.invalidate
-		public function redraw():void
+		public function resizeChildren():void
+		{
+			applyChildren(IInvalidate, "resize");
+		}
+		public function render():void
 		{
 			
+		}
+		public function renderChildren():void
+		{
+			applyChildren(IInvalidate, "render");
 		}
 	}
 }

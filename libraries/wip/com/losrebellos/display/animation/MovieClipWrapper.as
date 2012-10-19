@@ -2,6 +2,7 @@ package com.losrebellos.display.animation
 {
 	import com.losrebellos.display.base.SpritePlus;
 	import com.losrebellos.events.AnimationEvent;
+
 	import flash.display.FrameLabel;
 	import flash.display.MovieClip;
 	import flash.display.Scene;
@@ -13,7 +14,7 @@ package com.losrebellos.display.animation
 	 * @author los rebellos
 	 *
 	 */
-	public class MovieClipWrapper extends SpritePlus implements IMovieClipPlus
+	public class MovieClipWrapper extends SpritePlus implements IMovieClipWrapper
 	{
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// CONSTRUCTOR

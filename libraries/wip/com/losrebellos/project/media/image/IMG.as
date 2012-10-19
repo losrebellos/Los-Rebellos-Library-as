@@ -2,7 +2,7 @@ package com.losrebellos.project.media.image {	import com.losrebellos.display.b
 		// VARIABLES
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////		protected var _container:SpritePlus;						////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// CONSTRUCTOR
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////		public function IMG()		{			super();		}		override protected function createContent():void		{			_container = new SpritePlus();		}		override protected function addContent():void		{			addChild(_container);		}						////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////		public function IMG()		{			super();						_container = new SpritePlus();			addChild(_container);		}						////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// LOAD
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////		protected var _url:String;		protected var _context:LoaderContext;		protected var _loader:LoaderPlus;		public function load(url:String, context:LoaderContext = null):void		{			_url = url;			_context = context;						if(_loader.content)			{				putImg();			}			else			{				_loader = new LoaderPlus();				addEvents();				_loader.load(new URLRequest(_url), _context);			}		}		protected function putImg():void		{			_container.addChild(_loader.content);						dispatchEvent(new IMGEvent(IMGEvent.COMPLETE));		}				////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// EVENTS
@@ -10,7 +10,7 @@ package com.losrebellos.project.media.image {	import com.losrebellos.display.b
 		// HANDLERS
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////		protected function onProgress(e:ProgressEvent):void		{			dispatchEvent(new IMGEvent(IMGEvent.PROGRESS, e.bytesLoaded / e.bytesTotal));		}		protected function onComplete(e:Event):void		{			removeEvents();			putImg();		}		protected function onError(e:Event):void		{			removeEvents();			dispatchEvent(new IMGEvent(IMGEvent.ERROR, _url + " (" + e.type + ")"));		}						////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// DISPOSE
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////		override public function dispose(e:Event = null):void		{			super.dispose(e);						_url = null;			_context = null;						_container.removeAllChildren();			_container = null;						try			{				removeEvents();
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////////		override public function dispose(e:Event = null):void		{			super.dispose(e);						_url = null;			_context = null;						_container.removeChildren();			_container = null;						try			{				removeEvents();
 				_loader.close();
 			}			catch(error:Error)			{
 				// nothing			}			_loader = null;		}	}}

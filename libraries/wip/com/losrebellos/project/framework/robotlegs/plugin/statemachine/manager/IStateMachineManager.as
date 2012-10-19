@@ -1,6 +1,7 @@
 package com.losrebellos.project.framework.robotlegs.plugin.statemachine.manager
 {
 	import flash.events.IEventDispatcher;
+	
 	/**
 	 * @author Los Rebellos (Benoit Vinay)
 	 */

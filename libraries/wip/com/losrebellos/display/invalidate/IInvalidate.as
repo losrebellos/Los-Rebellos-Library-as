@@ -1,6 +1,5 @@
 package com.losrebellos.display.invalidate
 {
-	import flash.geom.Rectangle;
 	/**
 	 * @author Los Rebellos (Benoit Vinay)
 	 */
@@ -8,8 +7,8 @@ package com.losrebellos.display.invalidate
 	{
 		function invalidate():void;
 		
-		function resize(rect:Rectangle = null):void;
+		function resize():void;
 		
-		function redraw():void;
+		function render():void;
 	}
 }

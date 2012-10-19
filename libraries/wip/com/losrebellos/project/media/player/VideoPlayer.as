@@ -5,6 +5,7 @@ package com.losrebellos.project.media.player
 	import com.losrebellos.scale.FitType;
 	import com.losrebellos.scale.PositionType;
 	import com.losrebellos.scale.Scale;
+
 	import flash.errors.IllegalOperationError;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
@@ -37,6 +38,9 @@ package com.losrebellos.project.media.player
 			_videoHeight = videoHeight;
 			
 			super();
+			
+			_video = new Video(_videoWidth, _videoHeight);
+			this.addChild(_video);
 		}
 		
 		
@@ -50,19 +54,6 @@ package com.losrebellos.project.media.player
 		public function get smoothing():Boolean
 		{
 			return _video.smoothing;
-		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// CONTENT
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override protected function createContent():void
-		{
-			_video = new Video(_videoWidth, _videoHeight);
-		}
-		override protected function addContent():void
-		{
-			this.addChild(_video);
 		}
 
 		
@@ -106,7 +97,7 @@ package com.losrebellos.project.media.player
 			//if need to fit
 			else if(_rect)
 			{
-				resize(_rect);
+				resize();
 			}
 			
 			//normal resize
@@ -128,7 +119,7 @@ package com.losrebellos.project.media.player
 			
 			if(_rect)
 			{
-				resize(_rect);
+				resize();
 			}
 		}
 		public function get fitType():String
@@ -142,18 +133,21 @@ package com.losrebellos.project.media.player
 			
 			if(_rect)
 			{
-				resize(_rect);
+				resize();
 			}
 		}
 		public function get positionType():String
 		{
 			return _positionType;
 		}
-		override public function resize(rect:Rectangle):void
+		protected var _rect:Rectangle;
+		override public function resize():void
 		{
-			_rect = rect;
-			
 			Scale.setScaledRectangle(_fitType, _positionType, new Rectangle(0, 0, _videoWidth, _videoHeight), _rect, _video);
+		}
+		override public function render():void
+		{
+			
 		}
 		
 		
@@ -166,6 +160,8 @@ package com.losrebellos.project.media.player
 			
 			_video.attachNetStream(null);
 			_video = null;
+			
+			_rect = null;
 		}
 	}
 }

@@ -76,7 +76,7 @@ package com.losrebellos.display.invalidate
 		{
 			while(ITEMS.length > 0)
 			{
-				(ITEMS.pop() as IInvalidate).redraw();
+				(ITEMS.pop() as IInvalidate).render();
 			}
 			
 			_render = false;

@@ -1,4 +1,4 @@
-package com.losrebellos.interfaces
+package com.losrebellos.display
 {
 	import flash.display.Graphics;
 	/**

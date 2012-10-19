@@ -14,12 +14,12 @@ package com.losrebellos.project.framework.robotlegs.plugin.statemachine.view
 	/**
 	 * @author Los Rebellos (Benoit Vinay)
 	 */
-	public class StateMachineDebugMediator extends BaseStateMachineMediator
+	public class StateMachineDebugController extends BaseStateMachineController
 	{
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// CONSTRUCTOR
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		public function StateMachineDebugMediator()
+		public function StateMachineDebugController()
 		{
 			super();
 		}

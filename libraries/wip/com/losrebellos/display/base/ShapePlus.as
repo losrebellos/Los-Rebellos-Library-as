@@ -5,7 +5,6 @@ package com.losrebellos.display.base
 	import flash.display.Graphics;
 	import flash.display.Shape;
 	import flash.events.Event;
-	import flash.geom.Rectangle;
 
 
 
@@ -135,8 +134,6 @@ package com.losrebellos.display.base
 			
 			_graphics.clear();
 			_graphics = null;
-			
-			_rect = null;
 		}
 		
 		
@@ -147,16 +144,11 @@ package com.losrebellos.display.base
 		{
 			StageManager.addItem(this);
 		}
-		// save the resize data
-		protected var _rect:Rectangle;
-		public function resize(rect:Rectangle):void
+		public function resize():void
 		{
-			_rect = rect;
 			
-			invalidate();
 		}
-		// redraw automatically on stage.invalidate
-		public function redraw():void
+		public function render():void
 		{
 			
 		}

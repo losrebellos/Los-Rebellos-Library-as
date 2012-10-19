@@ -5,7 +5,7 @@ package com.losrebellos.project.framework.robotlegs.plugin.statemachine
 	import com.losrebellos.project.framework.robotlegs.plugin.statemachine.command.StateMachineConfigureCommand;
 	import com.losrebellos.project.framework.robotlegs.plugin.statemachine.command.StateMachineConfigureDebugCommand;
 	import com.losrebellos.project.framework.robotlegs.plugin.statemachine.view.StateMachineDebug;
-	import com.losrebellos.project.framework.robotlegs.plugin.statemachine.view.StateMachineDebugMediator;
+	import com.losrebellos.project.framework.robotlegs.plugin.statemachine.view.StateMachineDebugController;
 
 	import org.robotlegs.base.ContextEvent;
 	import org.robotlegs.utilities.statemachine.FSMInjector;
@@ -67,7 +67,7 @@ package com.losrebellos.project.framework.robotlegs.plugin.statemachine
 				// injections are forced
 				// so the debug view can be moved in any other container
 				var stateMachineDebug:StateMachineDebug = new StateMachineDebug();
-				var stateMachineDebugMediator:StateMachineDebugMediator = new StateMachineDebugMediator();
+				var stateMachineDebugMediator:StateMachineDebugController = new StateMachineDebugController();
 				injector.injectInto(stateMachineDebugMediator);
 				mediatorMap.registerMediator(stateMachineDebug, stateMachineDebugMediator);
 				injector.mapValue(StateMachineDebug, stateMachineDebug);

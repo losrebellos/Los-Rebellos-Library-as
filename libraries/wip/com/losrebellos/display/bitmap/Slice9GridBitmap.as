@@ -225,22 +225,5 @@ package com.losrebellos.display.bitmap
 			
 			_slice9Grid = null;
 		}
-		
-		
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		// INVALIDATE
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		override public function resize(rect:Rectangle):void
-		{
-			super.resize(rect);
-			
-			if(_rect.width != _renderWidth || _rect.height != _renderHeight)
-			{
-				_renderWidth = _rect.width;
-				_renderHeight = _rect.height;
-			
-				renderSlice9Grid();
-			}
-		}
 	}
 }
