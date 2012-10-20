@@ -1,1 +1,1 @@
-Personal actionscript 3 library:- base classes- lots of interfaces to map the base AS3 package structure- contains a project package that use RobotLegs- has some dependencies- some stuff are not testedAlways in beta.
+Personal actionscript 3 library:- base classes with lots of interfaces to map the base AS3 package structure- contains a project package that use RobotLegs- has some dependencies- some stuff are not testedAlways in beta.
