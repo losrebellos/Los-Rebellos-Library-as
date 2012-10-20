@@ -1,1 +1,1 @@
-Personal actionscript 3 library:- has some dependencies- some stuff are not tested- in betaDue to some recent refactoring, a new (more simple) framework will be added, on top Robotlegs.
+Personal actionscript 3 library:- base classes- lots of interfaces to map the base AS3 package structure- contains a project package that use RobotLegs- has some dependencies- some stuff are not testedAlways in beta.
